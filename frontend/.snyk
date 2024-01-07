@@ -1,0 +1,12 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.22.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-ANSIHTML-1296849:
+    - react-scripts > @pmmmwh/react-refresh-webpack-plugin > ansi-html:
+        reason: None given
+        expires: '2022-02-09T11:40:38.980Z'
+    - react-scripts > webpack-dev-server > ansi-html:
+        reason: None given
+        expires: '2022-02-09T11:40:38.980Z'
+patch: {}

@@ -1,0 +1,10 @@
+@use 'src/mixins/breakpoint';
+@import './variables';
+@import './_fonts';
+@import './_extensions';
+@import './_components';
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,10 @@
+@mixin custom-scroll($track, $thumb)
+    &::-webkit-scrollbar
+        width: 4px
+        height: 8px
+
+    &::-webkit-scrollbar-track
+        background-color: $track
+
+    &::-webkit-scrollbar-thumb
+        background-color: $thumb
