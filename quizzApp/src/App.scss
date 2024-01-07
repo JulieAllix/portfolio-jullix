@@ -1,0 +1,13 @@
+:root {
+  --app-height: 100%;
+}
+
+body {
+  position: fixed;
+  left: 0; top: 0; right: 0; bottom: 0;
+  padding: 0;
+  margin: 0;
+  height: var(--app-height);
+  overflow: hidden!important;
+  background-color: var(--m-primary);
+}

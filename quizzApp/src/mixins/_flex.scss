@@ -1,0 +1,29 @@
+@mixin center-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin vend-child {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+@mixin vstart-child {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@mixin hend-child {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+@mixin hstart-child {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}

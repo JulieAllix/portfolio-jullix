@@ -1,0 +1,47 @@
+{
+	"compilerOptions": {
+		"outDir": "build/dist",
+		"module": "esnext",
+		"target": "esnext",
+		"lib": [
+			"esnext",
+			"dom"
+		],
+		"sourceMap": true,
+		"baseUrl": "./src",
+		"paths": {
+			"@Assets/*": [
+				"../assets/*"
+			],
+			"@Models/*": [
+				"../../models/*"
+			],
+			"@Pages/*": ["pages/*"],
+			"@Hooks/*": ["hooks/*"],
+			"@Components/*": ["components/*"],
+			"@Utils/*": [
+				"utils/*"
+			]
+		},
+		"jsx": "react",
+		"allowSyntheticDefaultImports": true,
+		"moduleResolution": "node",
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"noUnusedLocals": true,
+		"allowJs": true,
+		"experimentalDecorators": true,
+		"skipLibCheck": true,
+		"downlevelIteration": true
+	},
+	"include": [
+		"./src",
+		"./mock",
+		"./utils"
+	],
+	"exclude": [
+		"node_modules",
+		"build"
+	]
+}
