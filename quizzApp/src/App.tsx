@@ -3,6 +3,7 @@ import {useSelector} from "react-redux";
 import {Redirect, Route, Switch} from "react-router";
 import styled from "styled-components";
 import {ThemeProvider} from "styled-components";
+import {ToastContainer} from "react-toastify";
 import {Helmet} from "react-helmet";
 
 import {PictogramCustom} from "@Components/PictogramCustom";
@@ -67,6 +68,7 @@ export function App() {
     console.log("user", user)
     return (
         <ThemeProvider theme={theme}>
+            <ToastContainer/>
             {themeHelmet}
             <AppStyle backgroundImage={background}>
                 <AppLogoWrapper>

@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import {Label} from "@Components/layout";
+import {Password} from "primereact/password";
 import {InputText} from "primereact/inputtext";
+
+import {Label} from "@Components/layout";
 
 interface Props {
     label?: string;
     value: string ;
     setValue: (value: string) => void;
     margin?: string;
+    type?: "password"
 }
 
 export const InputCustom: React.FC<Props> = (props) => {
@@ -17,11 +20,25 @@ export const InputCustom: React.FC<Props> = (props) => {
             {props.label &&
                 <Label>{props.label}</Label>
             }
-            <InputTextStyle
-                className={"w-full"}
-                value={props.value}
-                onChange={(e) => props.setValue(e.target.value)}
-            />
+            {props.type === "password" ?
+                <Password
+                    name={"password"}
+                    aria-describedby="password-help"
+                    toggleMask
+                    feedback={false}
+                    value={props.value}
+                    onChange={(e) => props.setValue(e.target.value)}
+                    placeholder={"******"}
+                    className={"w-full"}
+                    inputClassName={"w-full"}
+                />
+            :
+                <InputTextStyle
+                    className={"w-full"}
+                    value={props.value}
+                    onChange={(e) => props.setValue(e.target.value)}
+                />
+            }
         </InputCustomWrapper>
     )
 }

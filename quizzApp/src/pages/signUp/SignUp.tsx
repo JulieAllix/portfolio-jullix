@@ -1,13 +1,22 @@
 import React, {useState} from "react";
 import {useHistory} from "react-router";
 import styled from "styled-components";
+import update from "immutability-helper";
 import {v4 as uuidv4} from 'uuid';
 
 import {ButtonCustom} from "@Components/ButtonCustom";
 import {InputCustom} from "@Components/InputCustom";
 import {ContentWrapper, InputsWrapper, Link, LinkWrapper, Title, TitleWrapper} from "@Components/layout";
+
 import {createLanguage, registerWithEmailAndPassword, saveUser} from "@Utils/firebaseConfig";
-import {ModalCustom} from "@Components/ModalCustom";
+import {notification} from "@Utils/events";
+
+interface SignUpData {
+    email: string,
+    password: string,
+    nativeLanguage: string,
+    languageToLearn: string;
+}
 
 interface Props {
 
@@ -16,54 +25,66 @@ interface Props {
 export const SignUp: React.FC<Props> = (props) => {
     const history = useHistory();
 
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [nativeLanguage, setNativeLanguage] = useState<string>('');
-    const [studiedLanguage, setStudiedLanguage] = useState<string>('');
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [modalContent, setModalContent] = useState<{title: string, body: string}>({title: '', body: ''});
+    const [signUpData, setSignUpData] = useState<SignUpData>({
+        email: null,
+        password: null,
+        nativeLanguage: null,
+        languageToLearn: null,
+    });
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleSignUp = () => {
-        setIsLoading(true);
-        const newLanguageUid = uuidv4();
-        const languageData = {
-            languageUid: newLanguageUid,
-            languageName: studiedLanguage
-        }
-        createLanguage(languageData).then(() => {
-            registerWithEmailAndPassword(email, password).then(createdUser => {
-                saveUser({
-                    userUid: createdUser.user.uid,
-                    email: email,
-                    nativeLanguage: nativeLanguage,
-                    languageToLearn: studiedLanguage,
-                    trainingCardsList: [],
-                    numberOfCards: 0,
-                    languages: [newLanguageUid],
-                }).then(() => {
-                    setIsModalOpen(true);
-                    setModalContent({title: 'Success', body: "Your account successfully got created."});
-                    setIsLoading(false);
+        if (!signUpData.email) {
+            notification.emit("error", "Please indicate your e-mail address.");
+        } else if (!signUpData.password) {
+            notification.emit("error", "Please indicate a password.");
+        } else if (!signUpData.nativeLanguage) {
+            notification.emit("error", "Please indicate your native language");
+        } else if (!signUpData.languageToLearn) {
+            notification.emit("error", "Please indicate a studied language");
+        } else {
+            setIsLoading(true);
+
+            const newLanguageUid = uuidv4();
+            const languageData = {
+                languageUid: newLanguageUid,
+                languageName: signUpData.languageToLearn
+            };
+
+            createLanguage(languageData).then(() => {
+                registerWithEmailAndPassword(signUpData.email, signUpData.password).then(createdUser => {
+                    saveUser({
+                        userUid: createdUser.user.uid,
+                        email: signUpData.email,
+                        nativeLanguage: signUpData.nativeLanguage,
+                        languageToLearn: signUpData.languageToLearn,
+                        trainingCardsList: [],
+                        numberOfCards: 0,
+                        languages: [newLanguageUid],
+                    }).then(() => {
+                        notification.emit("success", "Your account successfully got created.");
+                        setIsLoading(false);
+                    }).catch(error => {
+                        console.error('error saveUser', error);
+                        notification.emit("error", "Your account couldn't get created.");
+                        setIsLoading(false);
+                    });
                 }).catch(error => {
-                    console.log('error saveUser', error);
-                    setIsModalOpen(true);
-                    setModalContent({title: 'Error', body: "Your account couldn't get created."});
+                    console.error('error registerWithEmailAndPassword', error);
                     setIsLoading(false);
+                    if (error.code === "auth/email-already-in-use") {
+                        notification.emit("error", "An account already exists for this e-mail address.");
+                    } else if (error.code === "auth/weak-password") {
+                        notification.emit("error", "Your password should contain at least 6 characters.");
+                    } else {
+                        notification.emit("error", "Your account creation failed.");
+                    };
                 });
             }).catch(error => {
-                console.log('error registerWithEmailAndPassword', error);
-                setIsModalOpen(true);
+                console.error('error createLanguage', error);
                 setIsLoading(false);
-                if (error.code === "auth/email-already-in-use") {
-                    setModalContent({title: 'Error', body: "An account already exists for this e-mail address."});
-                } else if (error.code === "auth/weak-password") {
-                    setModalContent({title: 'Error', body: "Your password should contain at least 6 characters."});
-                } else {
-                    setModalContent({title: 'Error', body: "Your account creation failed."});
-                }
             });
-        }).catch(error => console.log('error createLanguage', error));
+        };
     };
 
     return (
@@ -73,17 +94,47 @@ export const SignUp: React.FC<Props> = (props) => {
             </TitleWrapper>
             <ContentWrapper>
                 <InputsWrapper>
-                    <InputCustom label={'E-mail address'} value={email} setValue={setEmail}/>
-                    <InputCustom label={'Password'} value={password} setValue={setPassword}/>
-                    <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
-                    <InputCustom label={'Studied language'} value={studiedLanguage} setValue={setStudiedLanguage}/>
+                    <InputCustom
+                        label={'E-mail address'}
+                        value={signUpData.email}
+                        setValue={e => setSignUpData(update(signUpData, {
+                            email: {
+                                $set: e
+                            }
+                        }))}
+                    />
+                    <InputCustom
+                        label={'Password'}
+                        value={signUpData.password}
+                        setValue={e => setSignUpData(update(signUpData, {
+                            password: {
+                                $set: e
+                            }
+                        }))}
+                        type={"password"}
+                    />
+                    <InputCustom
+                        label={'Native language'}
+                        value={signUpData.nativeLanguage}
+                        setValue={e => setSignUpData(update(signUpData, {
+                            nativeLanguage: {
+                                $set: e
+                            }
+                        }))}
+                    />
+                    <InputCustom
+                        label={'Studied language'}
+                        value={signUpData.languageToLearn}
+                        setValue={e => setSignUpData(update(signUpData, {
+                            languageToLearn: {
+                                $set: e
+                            }
+                        }))}
+                    />
                 </InputsWrapper>
                 <ButtonCustom isLoading={isLoading} onClick={handleSignUp}>Sign up</ButtonCustom>
                 <LinkWrapper onClick={() => history.push("/sign-in")}><Link>Sign in</Link></LinkWrapper>
             </ContentWrapper>
-            <ModalCustom visible={isModalOpen} setVisible={setIsModalOpen} title={modalContent.title}>
-                {modalContent.body}
-            </ModalCustom>
         </SignUpWrapper>
     )
 }
