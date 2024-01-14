@@ -65,15 +65,16 @@ export function App() {
             }
         }
     };
-    console.log("user", user)
+
     return (
         <ThemeProvider theme={theme}>
-            <ToastContainer/>
-            {themeHelmet}
-            <AppStyle backgroundImage={background}>
-                <AppLogoWrapper>
-                    <PictogramCustom name={'Brain'} width={'40px'} />
-                </AppLogoWrapper>
+            <AppWrapper>
+                <ToastContainer/>
+                {themeHelmet}
+                <AppStyle backgroundImage={background}>
+                    <AppLogoWrapper>
+                        <PictogramCustom name={'Brain'} width={'40px'} />
+                    </AppLogoWrapper>
 
                     <Switch>
                         <Route path="/sign-up" render={UnAuthRoute(SignUp)} exact={true}/>
@@ -90,10 +91,16 @@ export function App() {
                     </Switch>
 
 
-            </AppStyle>
+                </AppStyle>
+            </AppWrapper>
         </ThemeProvider>
     );
 }
+
+const AppWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const AppStyle = styled.div<{backgroundImage: any}>`
   height: var(--app-height);
@@ -101,6 +108,9 @@ const AppStyle = styled.div<{backgroundImage: any}>`
   background-position: center;
   background-size: 110% 100%;
   background-image: ${props => `url(${props.backgroundImage})`};
+  max-width: 600px;
+  width: 100%;
+  position: relative;
 `;
 
 const AppLogoWrapper = styled.div`

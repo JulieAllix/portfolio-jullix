@@ -105,4 +105,5 @@ const TabItem = styled(motion.div)<{isActive: boolean}>`
   letter-spacing: 0px;
   text-align: center;
   color: ${props => props.isActive ? "var(--m-primary)" : "var(--m-grey_dark)"};
+  cursor: pointer;
 `;
