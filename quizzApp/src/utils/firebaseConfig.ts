@@ -65,6 +65,12 @@ export const getLanguageByUid = async (languageUid: string): Promise<Language> =
     }
 };
 
+export const getLanguagesOfUser = async (user: User): Promise<Language[]> => {
+    const languagesUids = user.languages;
+    const languagesArray = (await languagesRef.where("languageUid", "in", languagesUids).get()).docs.map(document => document.data());
+    return languagesArray;
+};
+
 // QUIZZ
 
 export const getRandomNumberId = (): number => {
