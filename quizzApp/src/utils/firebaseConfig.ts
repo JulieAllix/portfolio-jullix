@@ -59,10 +59,7 @@ export const getLanguageByUid = async (languageUid: string): Promise<Language> =
 
     const firebaseLanguageData = await languageData.data();
     if (firebaseLanguageData !== undefined) {
-        return {
-            languageUid: firebaseLanguageData.languageUid,
-            languageName: firebaseLanguageData.languageName,
-        }
+        return firebaseLanguageData
     } else {
         throw new Error();
     }
@@ -114,4 +111,12 @@ export const getAllTrainingCardsOfUser = async (trainingCardsList: number[], lan
     const data = await studyCardsRef.where("cardUid", "in", trainingCardsList).where("languageUid", "==", languageUid).get();
     const trainingCards = data.docs.map(document => document.data());
     return trainingCards;
+};
+
+// FORM
+
+export const createCard = async (data: CardData): Promise<void> => {
+    return studyCardsRef.doc(data.cardUid.toString()).set({
+        ...data
+    });
 };

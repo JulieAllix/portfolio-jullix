@@ -3,11 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 
+import {ButtonCustom} from "@Components/ButtonCustom";
 import {InputNumberCustom} from "@Components/InputNumberCustom";
 import {Slideshow} from "@Pages/quizz/Quizz/Slideshow";
+import {Card, CardsWrapper, CardTitle, Instruction, Subtitle} from "@Components/layout";
 
-import {CardData} from "@Models/types/bases/quizzApp/Form";
-import {State} from "@Utils/redux/store";
 import {
     getAllTrainingCardsOfUser,
     getLanguageByUid,
@@ -15,9 +15,10 @@ import {
     getUserFirebaseData,
     saveUser
 } from "@Utils/firebaseConfig";
+import {State} from "@Utils/redux/store";
 import {setUser} from "@Utils/redux/reducers/user";
 import {notification} from "@Utils/events";
-import {ButtonCustom} from "@Components/ButtonCustom";
+import {CardData} from "@Models/types/bases/quizzApp/Form";
 import {Language} from "@Models/types/bases/quizzApp/Language";
 
 interface Props {
@@ -136,7 +137,7 @@ export const Quizz: React.FC<Props> = (props) => {
     return (
         <QuizzWrapper>
             <ContentWrapper>
-                <Instruction>{quizzMode === null ? "Quizz mode" : quizzMode === "random" ? "Random quizz" : "Training quizz"}</Instruction>
+                <Instruction width={"60%"}>{quizzMode === null ? "Quizz mode" : quizzMode === "random" ? "Random quizz" : "Training quizz"}</Instruction>
                 <div>
                     {quizzMode !== null &&
                         <QuizzDetailsWrapper>
@@ -156,7 +157,7 @@ export const Quizz: React.FC<Props> = (props) => {
                     }
                 </div>
                 {quizzMode === null &&
-                    <CardsWrapper style={{height: `${window.innerHeight*0.8}px`, }}>
+                    <CardsWrapper padding={"0 0 20px 0"} style={{height: `${window.innerHeight*0.8}px`, }}>
                         <Card>
                             <CardTitle>Random quizz</CardTitle>
                             <Subtitle>Choose the number of questions to pick randomly from your database.</Subtitle>
@@ -189,18 +190,6 @@ const ContentWrapper = styled.div`
   overflow-x: hidden;
 `;
 
-const Instruction = styled.div`
-  font-size: 32px;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 500;
-  margin-bottom: 50px;
-  text-align: left;
-  color: white;
-  line-height: 30px;
-  width: 60%;
-`;
-
 const QuizzDetailsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -216,35 +205,3 @@ const Text = styled.div`
   color: white;
 `;
 
-const CardsWrapper = styled.div`
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-bottom: 20px;
-`;
-
-const Card = styled.div`
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 12px;
-  margin-bottom: 24px;
-`;
-
-const CardTitle = styled.div`
-  font-size: 18px;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 600;
-  margin-bottom: 2px;
-`;
-
-const Subtitle = styled.div`
-  font-size: 12px;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 400;
-  margin-bottom: 12px;
-  color: var(--m-grey_dark);
-`;
