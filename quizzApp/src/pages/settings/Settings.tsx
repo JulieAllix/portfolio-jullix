@@ -11,7 +11,7 @@ import {ModalCustom} from "@Components/ModalCustom";
 import {Card, CardsWrapper, CardTitle, Instruction, Subtitle} from "@Components/layout";
 
 import {State} from "@Utils/redux/store";
-import {createLanguage, getLanguagesOfUser, saveUser, signOut} from "@Utils/firebaseConfig";
+import {auth, createLanguage, getLanguagesOfUser, saveUser, signOut} from "@Utils/firebaseConfig";
 import {setUser} from "@Utils/redux/reducers/user";
 import {notification} from "@Utils/events";
 
@@ -77,6 +77,12 @@ export const Settings: React.FC<Props> = (props) => {
         signOut().catch(error => console.error('error signOut', error));
     };
 
+    const handleResetPassword = () => {
+        auth.sendPasswordResetEmail(user.email).then(() => {
+            notification.emit('success', `Un mail de réinitilisation de mot de passe a été envoyé à l'adresse : ${user?.email}`);
+        });
+    };
+
     const handleSaveNewLanguage = () => {
         setIsLoading(true);
         const newLanguageUid = uuidv4();
@@ -124,6 +130,7 @@ export const Settings: React.FC<Props> = (props) => {
                         <CardTitle>Personal data</CardTitle>
                         <Subtitle>{user.email}</Subtitle>
                         <Subtitle><Accent>{user.numberOfCards}</Accent> cards created</Subtitle>
+                        <ButtonCustom onClick={handleResetPassword}>Reset password</ButtonCustom>
                     </Card>
                     <Card>
                         <InputCustom label={'Native language'} value={nativeLanguage} setValue={setNativeLanguage}/>
