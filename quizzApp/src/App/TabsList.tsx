@@ -6,6 +6,9 @@ import {PictogramCustom} from "../components/PictogramCustom";
 
 import { useMeasure } from "./use-measure";
 import {TabsPager} from "./TabsList/TabsPager";
+import {QuizzTab} from "./TabsList/QuizzTab";
+import {FormTab} from "./TabsList/FormTab";
+import {SettingsTab} from "./TabsList/SettingsTab";
 
 interface Props {
 
@@ -22,8 +25,8 @@ export const TabsList: React.FC<Props> = (props) => {
         <TabsListWrapper>
             <TabContainer ref={ref}>
                 <TabList ref={tabListRef}>
-                    <motion.div
-                        className={value === 0 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}
+                    <TabItem
+                        isActive={value === 0}
                         whileHover={{ backgroundColor: "#f1f3f5" }}
                         transition={{ duration: 0.1 }}
                         whileTap={{ backgroundColor: "#e9ecef" }}
@@ -31,9 +34,9 @@ export const TabsList: React.FC<Props> = (props) => {
                         onClick={() => setValue(0)}
                     >
                         <div>Quizz</div>
-                    </motion.div>
-                    <motion.div
-                        className={value === 1 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}
+                    </TabItem>
+                    <TabItem
+                        isActive={value === 1}
                         whileHover={{ backgroundColor: "#f1f3f5" }}
                         transition={{ duration: 0.1 }}
                         whileTap={{ backgroundColor: "#e9ecef" }}
@@ -41,9 +44,9 @@ export const TabsList: React.FC<Props> = (props) => {
                         onClick={() => setValue(1)}
                     >
                         <PictogramCustom name={value === 1 ? 'AddPink' : 'AddGrey'} width={'55px'}/>
-                    </motion.div>
-                    <motion.div
-                        className={value === 2 ? 'Component_TabsList__tabItem Component_TabsList__tabItem__active': 'Component_TabsList__tabItem'}
+                    </TabItem>
+                    <TabItem
+                        isActive={value === 2}
                         whileHover={{ backgroundColor: "#f1f3f5" }}
                         transition={{ duration: 0.1 }}
                         whileTap={{ backgroundColor: "#e9ecef" }}
@@ -51,11 +54,13 @@ export const TabsList: React.FC<Props> = (props) => {
                         onClick={() => setValue(2)}
                     >
                         <div>Settings</div>
-                    </motion.div>
+                    </TabItem>
                 </TabList>
             </TabContainer>
             <TabsPager value={value}>
-
+                <QuizzTab />
+                <FormTab />
+                <SettingsTab />
             </TabsPager>
         </TabsListWrapper>
     )
@@ -69,7 +74,7 @@ const TabsListWrapper = styled.div`
 `;
 
 const TabContainer = styled.div`
-  bottom: 0;
+  bottom: -1px;
   position: absolute;
   width: 100%;
   z-index: 100;
@@ -83,4 +88,21 @@ const TabList = styled.div`
   align-items: center;
   height: 70px;
   background-color: white;
+`;
+
+const TabItem = styled(motion.div)<{isActive: boolean}>`
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Poppins;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 12px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: ${props => props.isActive ? "var(--m-primary)" : "var(--m-grey_dark)"};
 `;
