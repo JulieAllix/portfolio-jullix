@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import {getLanguagesOfUser} from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
 
-export const useFetchLanguagesData = () => {
+export const useFetchLanguages = () => {
     const user = useSelector((state: State) => state.user);
 
     const [languagesdata, setLanguagesdata] = useState<{name: string, code: string}[]>(null);

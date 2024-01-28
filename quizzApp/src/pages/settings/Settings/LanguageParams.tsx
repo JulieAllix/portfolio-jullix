@@ -8,7 +8,7 @@ import {InputCustom} from "@Components/InputCustom";
 import {Card} from "@Components/layout";
 
 import {State} from "@Utils/redux/store";
-import {useFetchLanguagesData} from "@Hooks/useFetchLanguagesData";
+import {useFetchLanguages} from "@Hooks/useFetchLanguages";
 import {useSaveUserLanguageParams} from "@Hooks/useSaveUserLanguageParams";
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 
 export const LanguageParams: React.FC<Props> = () => {
     const user = useSelector((state: State) => state.user);
-    const {languagesdata} = useFetchLanguagesData();
+    const {languagesdata} = useFetchLanguages();
     const {isLoading, handleSave} = useSaveUserLanguageParams();
 
     const [studiedLanguage, setStudiedLanguage] = useState<{name: string, code: string}>(null);
