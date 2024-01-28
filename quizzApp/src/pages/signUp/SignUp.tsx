@@ -34,7 +34,7 @@ export const SignUp: React.FC<Props> = (props) => {
             </TitleWrapper>
             <ContentWrapper>
                 <SignUpForm signUpData={signUpData} setSignUpData={setSignUpData}/>
-                <SignUpButton signUpData={signUpData} />
+                <SignUpButton signUpData={signUpData}/>
                 <LinkWrapper onClick={() => history.push("/sign-in")}><Link>Sign in</Link></LinkWrapper>
             </ContentWrapper>
         </SignUpWrapper>

@@ -5,12 +5,7 @@ import {handleSignUp} from "@Utils/signUp";
 import {notification} from "@Utils/events";
 
 export const useSignUpButton = (signUpData: SignUpData) => {
-    const errorsMap = new Map();
-    errorsMap.set("email", signUpData.email);
-    errorsMap.set("password", signUpData.password);
-    errorsMap.set("nativeLanguage", signUpData.nativeLanguage);
-    errorsMap.set("languageToLearn", signUpData.languageToLearn);
-    const { checkErrors } = useCheckErrors(errorsMap);
+    const { checkErrors } = useCheckErrors(signUpData);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 

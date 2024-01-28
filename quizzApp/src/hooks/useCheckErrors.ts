@@ -1,38 +1,57 @@
 
-
 export interface ErrorsData {
     message: string;
 };
 
-export type ErrorsType = "email" | "password" | "nativeLanguage" | "languageToLearn"
+export type ErrorsType = "email" | "password" | "nativeLanguage" | "languageToLearn";
 
-export const useCheckErrors = (dataToCheck: Map<ErrorsType, any>) => {
+type DataToCheck = {
+    email: string,
+    password: string,
+    nativeLanguage?: string,
+    languageToLearn?: string;
+}
 
+export const useCheckErrors = (dataToCheck: DataToCheck) => {
+    const dataToCheckMap = new Map();
+
+    if (dataToCheck.email) {
+        dataToCheckMap.set("email", dataToCheck.email);
+    };
+    if (dataToCheck.password) {
+        dataToCheckMap.set("password", dataToCheck.password);
+    };
+    if (dataToCheck.nativeLanguage) {
+        dataToCheckMap.set("nativeLanguage", dataToCheck.nativeLanguage);
+    };
+    if (dataToCheck.languageToLearn) {
+        dataToCheckMap.set("languageToLearn", dataToCheck.languageToLearn);
+    };
 
     const checkErrors = (): ErrorsData[] => {
         const newErrors:ErrorsData[] = []
 
         if (dataToCheck) {
-            if (dataToCheck.has("email")) {
-                if (!dataToCheck.get("email")) {
+            if (dataToCheckMap.has("email")) {
+                if (!dataToCheckMap.get("email")) {
                     newErrors.push({message: "Please indicate your e-mail address."})
                 }
             };
 
-            if (dataToCheck.has("password")) {
-                if (!dataToCheck.get("password")) {
+            if (dataToCheckMap.has("password")) {
+                if (!dataToCheckMap.get("password")) {
                     newErrors.push({message: "Please indicate a password."})
                 }
             };
 
-            if (dataToCheck.has("nativeLanguage")) {
-                if (!dataToCheck.get("nativeLanguage")) {
+            if (dataToCheckMap.has("nativeLanguage")) {
+                if (!dataToCheckMap.get("nativeLanguage")) {
                     newErrors.push({message: "Please indicate your native language."})
                 }
             };
 
-            if (dataToCheck.has("languageToLearn")) {
-                if (!dataToCheck.get("languageToLearn")) {
+            if (dataToCheckMap.has("languageToLearn")) {
+                if (!dataToCheckMap.get("languageToLearn")) {
                     newErrors.push({message: "Please indicate a studied language."})
                 }
             };
