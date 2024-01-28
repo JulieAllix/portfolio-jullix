@@ -48,10 +48,12 @@ export const getUserFirebaseData = async (userUid: string): Promise<User> => {
 
 // LANGUAGE
 
-export const createLanguage = async (languageData: Language): Promise<void> => {
-    return languagesRef.doc(languageData.languageUid.toString()).set({
+export const createLanguage = async (languageData: Language): Promise<string> => {
+    await languagesRef.doc(languageData.languageUid.toString()).set({
         ...languageData
-    });
+    })
+
+    return languageData.languageUid;
 };
 
 export const getLanguageByUid = async (languageUid: string): Promise<Language> => {
