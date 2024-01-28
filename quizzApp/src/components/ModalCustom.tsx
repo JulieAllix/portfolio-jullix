@@ -40,11 +40,10 @@ export const ModalCustom: React.FC<Props> = (props) => {
                 visible={props.visible}
                 onHide={() => props.setVisible(false)}
                 style={{width: "95vw"}}
-                content={<ModalContent>
-                    {props.children}
-                </ModalContent>}
             >
-
+                <ModalContent>
+                    {props.children}
+                </ModalContent>
             </Dialog>
         </ModalCustomWrapper>
     )

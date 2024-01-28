@@ -34,7 +34,7 @@ export const useCheckErrors = (dataToCheck: DataToCheck) => {
         if (dataToCheck) {
             if (dataToCheckMap.has("email")) {
                 if (!dataToCheckMap.get("email")) {
-                    newErrors.push({message: "Please indicate your e-mail address."})
+                    newErrors.push({message: "Please indicate your email address."})
                 }
             };
 

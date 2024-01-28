@@ -51,9 +51,9 @@ export const useSignInButton = (signInData: SignInData) => {
 
     const handleLoginError = (error: any): void => {
         if (error.code === "auth/invalid-email") {
-            notification.emit("error", "No account exists with that e-mail address.");
+            notification.emit("error", "No account exists with that email address.");
         } else if (error.code === "auth/internal-error") {
-            notification.emit("error", "Check your password and your e-mail.");
+            notification.emit("error", "Check your password and your email.");
         } else {
             notification.emit("error", error.message);
         };

@@ -18,7 +18,7 @@ export const SignUpForm: React.FC<Props> = (props) => {
         <SignUpFormWrapper>
             <InputsWrapper>
                 <InputCustom
-                    label={'E-mail address'}
+                    label={'Email address'}
                     value={props.signUpData.email}
                     setValue={e => props.setSignUpData(update(props.signUpData, {
                         email: {

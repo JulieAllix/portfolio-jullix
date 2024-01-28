@@ -1,9 +1,9 @@
-import {createNewLanguage} from "@Utils/language";
+import {createNewLanguageInDatabase} from "@Utils/language";
 import {registerWithEmailAndPassword, saveUser} from "@Utils/firebaseConfig";
 
 export const handleSignUp = async (languageToLearn: string, nativeLanguage: string, email: string, password: string): Promise<{feedbackType: "success"|"error", feedbackMessage: string}> => {
     try {
-        const newLanguageUid = await createNewLanguage(languageToLearn);
+        const newLanguageUid = await createNewLanguageInDatabase(languageToLearn);
         const createdUser = await registerWithEmailAndPassword(email, password);
         await saveUser({
             userUid: createdUser.user.uid,
