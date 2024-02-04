@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import {useFetchLanguageToLearn} from "@Hooks/useFetchLanguageToLearn";
@@ -6,18 +6,21 @@ import {createCard, getRandomNumberId, getUserFirebaseData, saveUser} from "@Uti
 import {setUser} from "@Utils/redux/reducers/user";
 import {notification} from "@Utils/events";
 import {State} from "@Utils/redux/store";
-import {QuizzCardData} from "@Pages/quizzCardForm/QuizzCardForm";
-import {useCheckErrors} from "@Hooks/useCheckErrors";
 
-export const useCreateNewQuizzCardButton = (quizzCardData: QuizzCardData) => {
+import {useCheckErrors} from "@Hooks/useCheckErrors";
+import {QuizzContext} from "@Hooks/context/QuizzContext";
+
+
+export const useCreateNewQuizzCardButton = () => {
     const user = useSelector((state: State) => state.user);
     const dispatch = useDispatch();
+    const {quizzCardData, setQuizzCardData} = useContext(QuizzContext);
     const { checkErrors } = useCheckErrors(quizzCardData);
     const {languageToLearnData} = useFetchLanguageToLearn();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleClick = (setQuizzCardData: (value: QuizzCardData) => void) => {
+    const handleClick = () => {
         console.log("checkErrors", checkErrors())
         if (checkErrors().length > 0) {
             checkErrors().forEach((error) => {

@@ -15,6 +15,7 @@ import '../utils/prime-theme/theme.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {addLocale, locale} from "primereact/api";
+import {QuizzProvider} from "@Hooks/context/QuizzContext";
 
 addLocale('fr', {
 	firstDayOfWeek: 1,
@@ -32,11 +33,13 @@ locale('fr');
 render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<Error>
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
-			</Error>
+			<QuizzProvider>
+				<Error>
+					<BrowserRouter>
+						<App />
+					</BrowserRouter>
+				</Error>
+			</QuizzProvider>
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById("body")

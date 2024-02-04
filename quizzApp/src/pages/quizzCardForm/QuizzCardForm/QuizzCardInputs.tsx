@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import update from "immutability-helper";
 import {useSelector} from "react-redux";
 import styled from "styled-components";
@@ -7,17 +7,24 @@ import {InputCustom} from "@Components/InputCustom";
 import {Card, CardTitle, Subtitle} from "@Components/layout";
 
 import {State} from "@Utils/redux/store";
-import {QuizzCardData} from "@Pages/quizzCardForm/QuizzCardForm";
 import {useFetchLanguageToLearn} from "@Hooks/useFetchLanguageToLearn";
+import {QuizzContext} from "@Hooks/context/QuizzContext";
 
 interface Props {
-    quizzCardData: QuizzCardData;
-    setQuizzCardData: (value: QuizzCardData) => void;
+
 }
 
 export const QuizzCardInputs: React.FC<Props> = (props) => {
     const user = useSelector((state: State) => state.user);
     const {languageToLearnData} = useFetchLanguageToLearn();
+    const {quizzCardData, setQuizzCardData} = useContext(QuizzContext);
+    const [key, setKey] = useState(0);
+
+    useEffect(() => {
+        if (quizzCardData.languageToLearnValue === null && quizzCardData.nativeLanguageValue === null) {
+            setKey(key+1)
+        }
+    }, [quizzCardData]);
 
     return (
         <QuizzCardInputsWrapper>
@@ -25,8 +32,9 @@ export const QuizzCardInputs: React.FC<Props> = (props) => {
                 <CardTitle>{user.nativeLanguage} word</CardTitle>
                 <Subtitle>Add a word in your mother tongue.</Subtitle>
                 <InputCustom
-                    value={props.quizzCardData.nativeLanguageValue}
-                    setValue={e => props.setQuizzCardData(update(props.quizzCardData, {
+                    key={key}
+                    value={quizzCardData.nativeLanguageValue}
+                    setValue={e => setQuizzCardData(update(quizzCardData, {
                         nativeLanguageValue: {
                             $set: e
                         }
@@ -37,8 +45,9 @@ export const QuizzCardInputs: React.FC<Props> = (props) => {
                 <CardTitle>{languageToLearnData ? languageToLearnData.languageName : ""} translation</CardTitle>
                 <Subtitle>Add a word in your mother tongue.</Subtitle>
                 <InputCustom
-                    value={props.quizzCardData.languageToLearnValue}
-                    setValue={e => props.setQuizzCardData(update(props.quizzCardData, {
+                    key={key}
+                    value={quizzCardData.languageToLearnValue}
+                    setValue={e => setQuizzCardData(update(quizzCardData, {
                         languageToLearnValue: {
                             $set: e
                         }

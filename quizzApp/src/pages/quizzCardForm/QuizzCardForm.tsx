@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 
@@ -16,18 +16,14 @@ interface Props {
 }
 
 export const QuizzCardForm: React.FC<Props> = (props) => {
-    const [quizzCardData, setQuizzCardData] = useState<QuizzCardData>({
-        nativeLanguageValue: null,
-        languageToLearnValue: null,
-    });
 
     return (
         <FormWrapper>
             <ContentWrapper>
                 <Instruction width={"70%"}>New quizz card</Instruction>
                 <CardsWrapper padding={"0 0 20px 0"} style={{height: `${window.innerHeight*0.8}px`}}>
-                    <QuizzCardInputs quizzCardData={quizzCardData} setQuizzCardData={setQuizzCardData}/>
-                    <QuizzCardSaveButton quizzCardData={quizzCardData} setQuizzCardData={setQuizzCardData}/>
+                    <QuizzCardInputs />
+                    <QuizzCardSaveButton />
                 </CardsWrapper>
             </ContentWrapper>
         </FormWrapper>
