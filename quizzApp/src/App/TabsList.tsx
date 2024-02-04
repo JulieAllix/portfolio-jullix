@@ -1,14 +1,18 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
+import {FormTab} from "./TabsList/FormTab";
 import {PictogramCustom} from "../components/PictogramCustom";
+import {QuizzTab} from "./TabsList/QuizzTab";
+import {SettingsTab} from "./TabsList/SettingsTab";
+import {TabsPager} from "./TabsList/TabsPager";
 
 import { useMeasure } from "./use-measure";
-import {TabsPager} from "./TabsList/TabsPager";
-import {QuizzTab} from "./TabsList/QuizzTab";
-import {FormTab} from "./TabsList/FormTab";
-import {SettingsTab} from "./TabsList/SettingsTab";
+import {getUserFirebaseData} from "@Utils/firebaseConfig";
+import {setUser} from "@Utils/redux/reducers/user";
+import {State} from "@Utils/redux/store";
 
 interface Props {
 
@@ -16,10 +20,20 @@ interface Props {
 
 export const TabsList: React.FC<Props> = (props) => {
     const { ref } = useMeasure();
+    const dispatch = useDispatch();
     const tabListRef = useRef(null);
-
+    const user = useSelector((state: State) => state.user);
     const childRefs = useRef(new Map());
+
     const [value, setValue] = useState<number>(0);
+
+    useEffect(() => {
+        if (user) {
+            getUserFirebaseData(user.userUid).then(_user => {
+                dispatch(setUser(_user));
+            });
+        };
+    }, []);
 
     return (
         <TabsListWrapper>

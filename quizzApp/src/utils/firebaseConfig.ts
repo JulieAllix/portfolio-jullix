@@ -88,6 +88,8 @@ export const getRandomNumberId = (): number => {
 }
 
 export const getRandomCardsOfUser = async (userUid: string, numberOfQuestions: number, languageUid: string): Promise<CardData[]> => {
+    console.log("userUid", userUid)
+    console.log("languageUid", languageUid)
     const arrayOfRandomUids = [];
     for (let i = 0; i < numberOfQuestions; i++) {
         arrayOfRandomUids.push(getRandomNumberId())
@@ -96,22 +98,25 @@ export const getRandomCardsOfUser = async (userUid: string, numberOfQuestions: n
     const cardsDataArray = arrayOfRandomUids.map(async (randomUid: string) => {
         const array = (await studyCardsRef.where("userUid", "==", userUid)
             .where("languageUid", "==", languageUid)
-            .where("cardUid", ">=", randomUid)
+            //.where("cardUid", ">=", randomUid)
             .orderBy("cardUid").limit(1).get()).docs.map(document => document.data());
         return array[0];
-    });
+    })
 
     return Promise.all(cardsDataArray).then(response => {
         const _cardsDataArray = response.map((cardData: CardData) => {
-            return {
-                userUid: cardData.userUid,
-                cardUid: cardData.cardUid,
-                nativeLanguageValue: cardData.nativeLanguageValue,
-                languageToLearnValue: cardData.languageToLearnValue,
-                languageUid: cardData.languageUid
-            }
+            console.log("cardData", cardData)
+            if (cardData !== undefined) {
+                return {
+                    userUid: cardData.userUid,
+                    cardUid: cardData.cardUid,
+                    nativeLanguageValue: cardData.nativeLanguageValue,
+                    languageToLearnValue: cardData.languageToLearnValue,
+                    languageUid: cardData.languageUid
+                }
+            } else return null
         });
-        return _cardsDataArray;
+        return _cardsDataArray.filter(data => data !== null);
     })
 };
 

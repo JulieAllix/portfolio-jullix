@@ -8,13 +8,13 @@ import {Helmet} from "react-helmet";
 
 import {PictogramCustom} from "@Components/PictogramCustom";
 import {SignIn} from "@Pages/signIn/SignIn";
+import {SignUp} from "@Pages/signUp/SignUp";
 import {TabsList} from "./App/TabsList";
 
 import useTheme from "./hooks/useTheme";
 import background from "./assets/images/background_1.png";
 import {State} from "@Utils/redux/store";
 import "./App.scss";
-import {SignUp} from "@Pages/signUp/SignUp";
 
 export function App() {
     const theme = useTheme();
@@ -89,7 +89,6 @@ export function App() {
                             }
                         }}/>
                     </Switch>
-
 
                 </AppStyle>
             </AppWrapper>

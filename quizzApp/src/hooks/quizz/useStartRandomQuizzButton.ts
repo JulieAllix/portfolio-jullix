@@ -51,6 +51,7 @@ export const useStartRandomQuizzButton = (numberOfQuestionsToPick: number) => {
             checkErrors().forEach((error) => notification.emit("error", error.message));
         } else {
             setIsLoading(true);
+            console.log("user", user)
             getRandomCardsOfUser(user.userUid, Number(numberOfQuestionsToPick), languageToLearnData.languageUid).then(responseCardsData => {
                 if (isNumberOfQuestionsToPickHigherThanTotalNumberOfCards(responseCardsData)) {
                     notification.emit('error', `Please choose a number of questions below or equal to ${responseCardsData.length} (the total number of cards you have created so far).`);

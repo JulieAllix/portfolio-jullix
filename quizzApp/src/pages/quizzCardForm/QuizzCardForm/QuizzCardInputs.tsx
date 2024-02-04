@@ -37,9 +37,9 @@ export const QuizzCardInputs: React.FC<Props> = (props) => {
                 <CardTitle>{languageToLearnData ? languageToLearnData.languageName : ""} translation</CardTitle>
                 <Subtitle>Add a word in your mother tongue.</Subtitle>
                 <InputCustom
-                    value={props.quizzCardData.nativeLanguageValue}
+                    value={props.quizzCardData.languageToLearnValue}
                     setValue={e => props.setQuizzCardData(update(props.quizzCardData, {
-                        nativeLanguageValue: {
+                        languageToLearnValue: {
                             $set: e
                         }
                     }))}

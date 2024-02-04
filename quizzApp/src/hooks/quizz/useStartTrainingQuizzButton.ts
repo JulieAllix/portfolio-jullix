@@ -19,6 +19,7 @@ export const useStartTrainingQuizzButton = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const userHasTrainingCards = user.trainingCardsList.length > 0;
+    console.log("user.trainingCardsList", user.trainingCardsList);
 
     const handleQuizzCreation = (allTrainingCardsOfUser: CardData[]): void => {
         dispatch(setQuizzMode("training"));
