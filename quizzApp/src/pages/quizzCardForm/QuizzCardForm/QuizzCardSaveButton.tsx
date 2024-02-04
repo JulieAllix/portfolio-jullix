@@ -2,7 +2,7 @@ import React from "react";
 
 import {ButtonCustom} from "@Components/ButtonCustom";
 
-import {useCreateNewQuizzCardButton} from "@Hooks/useCreateNewQuizzCardButton";
+import {useCreateNewQuizzCardButton} from "@Hooks/quizzCardForm/useCreateNewQuizzCardButton";
 import {QuizzCardData} from "@Pages/quizzCardForm/QuizzCardForm";
 
 interface Props {

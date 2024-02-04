@@ -8,8 +8,8 @@ import {InputCustom} from "@Components/InputCustom";
 import {Card} from "@Components/layout";
 
 import {State} from "@Utils/redux/store";
-import {useFetchLanguages} from "@Hooks/useFetchLanguages";
-import {useSaveUserLanguageParams} from "@Hooks/useSaveUserLanguageParams";
+import {useFetchLanguages} from "@Hooks/settings/useFetchLanguages";
+import {useSaveUserLanguageParams} from "@Hooks/settings/useSaveUserLanguageParams";
 
 interface Props {
 

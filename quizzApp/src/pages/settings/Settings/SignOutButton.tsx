@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import {ButtonCustom} from "@Components/ButtonCustom";
 
-import {useSignOutButton} from "@Hooks/useSignOutButton";
+import {useSignOutButton} from "@Hooks/settings/useSignOutButton";
 
 interface Props {
 

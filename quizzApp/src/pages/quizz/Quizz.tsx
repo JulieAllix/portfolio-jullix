@@ -1,25 +1,25 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 
 import {ButtonCustom} from "@Components/ButtonCustom";
-import {InputNumberCustom} from "@Components/InputNumberCustom";
+import {RandomQuizzCard} from "@Pages/quizz/Quizz/RandomQuizzCard";
 import {Slideshow} from "@Pages/quizz/Quizz/Slideshow";
 import {Card, CardsWrapper, CardTitle, Instruction, Subtitle} from "@Components/layout";
 
 import {
     getAllTrainingCardsOfUser,
-    getLanguageByUid,
-    getRandomCardsOfUser,
     getUserFirebaseData,
     saveUser
 } from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
 import {setUser} from "@Utils/redux/reducers/user";
 import {notification} from "@Utils/events";
-import {CardData} from "@Models/types/bases/quizzApp/Form";
-import {Language} from "@Models/types/bases/quizzApp/Language";
+import {useFetchLanguageToLearn} from "@Hooks/useFetchLanguageToLearn";
+import {useSetNumberOfQuestionsToPick} from "@Hooks/quizz/useSetNumberOfQuestionsToPick";
+import {setQuizzMode} from "@Utils/redux/reducers/quizzMode";
+import {setCardsData} from "@Utils/redux/reducers/cardsData";
 
 interface Props {
 
@@ -27,60 +27,22 @@ interface Props {
 
 export const Quizz: React.FC<Props> = (props) => {
     const user = useSelector((state: State) => state.user);
+    const quizzMode = useSelector((state: State) => state.quizzMode);
+    const cardsData = useSelector((state: State) => state.cardsData);
     const dispatch = useDispatch();
+    const {languageToLearnData} = useFetchLanguageToLearn();
 
-    const [languageToLearnData, setLanguageToLearnData] = useState<Language>(null);
-    const [quizzMode, setQuizzMode] = useState<"random" | "training" | null>(null);
-    const [cardsData, setCardsData] = useState<CardData[]>([]);
-    const [numberOfQuestionsToPick, setNumberOfQuestionsToPick] = useState<number>(0);
+    const { numberOfQuestionsToPick, setNumberOfQuestionsToPick } = useSetNumberOfQuestionsToPick();
 
     const [isLoading, setIsLoading] = useState<"random" | "training" | "trainingsList" | null>(null);
-
-    useEffect(() => {
-        getLanguageByUid(user.languageToLearn).then(_language => {
-            setLanguageToLearnData(_language);
-        }).catch(error => console.error('error getLanguagesOfUser', error));
-    }, [user]);
-
-    const handleStartRandomQuizz = (): void => {
-        if (numberOfQuestionsToPick === 0) {
-            notification.emit('error', 'Please define a number of questions higher than 0.');
-        } else {
-            setIsLoading("random");
-            getRandomCardsOfUser(user.userUid, Number(numberOfQuestionsToPick), languageToLearnData.languageUid).then(response => {
-                if (Number(numberOfQuestionsToPick) > response.length) {
-                    notification.emit('error', `Please choose a number of questions below or equal to ${response.length} (the total number of cards you have created so far).`);
-                } else {
-                    setQuizzMode("random");
-                    const allData = [...response];
-                    const randomlySelectedData = [];
-                    const selectedQuestionIndexes: number [] = [];
-
-                    do {
-                        // get a random question from theme
-                        const questionIndex = Math.floor(allData.length * Math.random())
-                        if (!selectedQuestionIndexes.includes(questionIndex)) {
-                            randomlySelectedData.push(allData[questionIndex]);
-                            selectedQuestionIndexes.push(questionIndex);
-                        }
-                    } while (randomlySelectedData.length < numberOfQuestionsToPick);
-                    setNumberOfQuestionsToPick(0);
-                    setCardsData(randomlySelectedData);
-                    setIsLoading(null);
-                }
-            }).catch(error => {
-                console.log('error getAllCardsOfUser Quizz', error);
-                setIsLoading(null);
-            })
-        }
-    };
+    //dispatch(setQuizzMode(null))
 
     const handleStartTrainingQuizz = (): void => {
         if (user.trainingCardsList.length > 0) {
             setIsLoading("training");
             getAllTrainingCardsOfUser(user.trainingCardsList, languageToLearnData.languageUid).then(allTrainingCardsOfUser => {
-                setQuizzMode("training");
-                setCardsData(allTrainingCardsOfUser);
+                dispatch(setQuizzMode("training"));
+                dispatch(setCardsData(allTrainingCardsOfUser));
                 setNumberOfQuestionsToPick(0);
                 setIsLoading(null);
             }).catch(error => {
@@ -142,7 +104,7 @@ export const Quizz: React.FC<Props> = (props) => {
                     {quizzMode !== null &&
                         <QuizzDetailsWrapper>
                             <Text>{cardsData.length} question{cardsData.length > 1 ? 's': ''}</Text>
-                            <Text onClick={() => setQuizzMode(null)}>Stop quizz</Text>
+                            <Text onClick={() => dispatch(setQuizzMode(null))}>Stop quizz</Text>
                         </QuizzDetailsWrapper>
                     }
                     {quizzMode !== null &&
@@ -158,12 +120,13 @@ export const Quizz: React.FC<Props> = (props) => {
                 </div>
                 {quizzMode === null &&
                     <CardsWrapper padding={"0 0 20px 0"} style={{height: `${window.innerHeight*0.8}px`, }}>
-                        <Card>
-                            <CardTitle>Random quizz</CardTitle>
-                            <Subtitle>Choose the number of questions to pick randomly from your database.</Subtitle>
-                            <InputNumberCustom label={'Number of questions'} value={numberOfQuestionsToPick} setValue={setNumberOfQuestionsToPick}/>
-                            <ButtonCustom onClick={handleStartRandomQuizz} isLoading={isLoading === "random" ? true : false}>Start</ButtonCustom>
-                        </Card>
+                      <RandomQuizzCard
+                          numberOfQuestionsToPick={numberOfQuestionsToPick}
+                          setNumberOfQuestionsToPick={setNumberOfQuestionsToPick}
+                          setIsLoading={setIsLoading}
+                          setQuizzMode={setQuizzMode}
+                          setCardsData={setCardsData}
+                      />
                         <Card>
                             <CardTitle>Training quizz</CardTitle>
                             <Subtitle>Work on the vocabulary you have difficulties with.</Subtitle>

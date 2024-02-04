@@ -6,7 +6,7 @@ export interface ErrorsData {
     message: string;
 };
 
-export type ErrorsType = "email" | "password" | "nativeLanguage" | "languageToLearn";
+export type ErrorsType = "email" | "password" | "nativeLanguage" | "languageToLearn" | "numberOfQuestionsToPick";
 
 type DataToCheck = {
     email?: string,
@@ -15,6 +15,7 @@ type DataToCheck = {
     languageToLearn?: string;
     nativeLanguageValue?: string;
     languageToLearnValue?: string;
+    numberOfQuestionsToPick?: number;
 }
 
 export const useCheckErrors = (dataToCheck: DataToCheck) => {
@@ -40,8 +41,11 @@ export const useCheckErrors = (dataToCheck: DataToCheck) => {
     if (dataToCheck.languageToLearnValue) {
         dataToCheckMap.set("languageToLearnValue", dataToCheck.languageToLearnValue);
     };
-    console.log("dataToCheck", dataToCheck)
-    console.log("dataToCheckMap", dataToCheckMap)
+    if (dataToCheck.numberOfQuestionsToPick || dataToCheck.numberOfQuestionsToPick === 0) {
+        dataToCheckMap.set("numberOfQuestionsToPick", dataToCheck.numberOfQuestionsToPick);
+    };
+    //console.log("dataToCheck", dataToCheck)
+    //console.log("dataToCheckMap", dataToCheckMap)
     const checkErrors = (): ErrorsData[] => {
         const newErrors:ErrorsData[] = []
 
@@ -69,9 +73,8 @@ export const useCheckErrors = (dataToCheck: DataToCheck) => {
                     newErrors.push({message: "Please indicate a studied language."});
                 }
             };
-            console.log("dataToCheckMap.has(nativeLanguageValue)", dataToCheckMap.get("nativeLanguageValue"))
+
             if (dataToCheckMap.has("nativeLanguageValue")) {
-                console.log("get", dataToCheckMap.get("nativeLanguageValue"))
                 if (!dataToCheckMap.get("nativeLanguageValue")) {
                     newErrors.push({message: `Please enter the ${user.nativeLanguage} word.`});
                 }
@@ -83,6 +86,11 @@ export const useCheckErrors = (dataToCheck: DataToCheck) => {
                 }
             };
 
+            if (dataToCheckMap.has("numberOfQuestionsToPick")) {
+                if (dataToCheckMap.get("numberOfQuestionsToPick") <= 0) {
+                    newErrors.push({message: `Please define a number of questions higher than 0.`});
+                }
+            };
 
             return newErrors;
         } else return null

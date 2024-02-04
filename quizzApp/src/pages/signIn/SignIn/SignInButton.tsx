@@ -2,7 +2,7 @@ import React from "react";
 
 import {ButtonCustom} from "@Components/ButtonCustom";
 
-import {useSignInButton} from "@Hooks/useSignInButton";
+import {useSignInButton} from "@Hooks/signIn/useSignInButton";
 import {SignInData} from "@Pages/signIn/SignIn";
 
 interface Props {

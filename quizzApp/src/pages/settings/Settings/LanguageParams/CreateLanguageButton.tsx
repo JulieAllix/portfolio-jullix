@@ -4,7 +4,7 @@ import {ButtonCustom} from "@Components/ButtonCustom";
 import {InputCustom} from "@Components/InputCustom";
 import {ModalCustom} from "@Components/ModalCustom";
 
-import {useAddNewLanguageButton} from "@Hooks/useAddNewLanguageButton";
+import {useAddNewLanguageButton} from "@Hooks/settings/useAddNewLanguageButton";
 
 interface Props {
 
