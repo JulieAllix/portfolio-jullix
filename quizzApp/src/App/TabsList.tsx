@@ -3,10 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-import {FormTab} from "./TabsList/FormTab";
 import {PictogramCustom} from "../components/PictogramCustom";
-import {QuizzTab} from "./TabsList/QuizzTab";
-import {SettingsTab} from "./TabsList/SettingsTab";
+import {Quizz} from "@Pages/quizz/Quizz";
+import {QuizzCardForm} from "@Pages/quizzCardForm/QuizzCardForm";
+import {Settings} from "@Pages/settings/Settings";
 import {TabsPager} from "./TabsList/TabsPager";
 
 import { useMeasure } from "./use-measure";
@@ -72,9 +72,9 @@ export const TabsList: React.FC<Props> = (props) => {
                 </TabList>
             </TabContainer>
             <TabsPager value={value}>
-                <QuizzTab />
-                <FormTab />
-                <SettingsTab />
+                <Quizz />
+                <QuizzCardForm/>
+                <Settings />
             </TabsPager>
         </TabsListWrapper>
     )
