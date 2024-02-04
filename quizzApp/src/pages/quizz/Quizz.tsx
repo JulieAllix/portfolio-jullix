@@ -3,23 +3,18 @@ import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 
-import {ButtonCustom} from "@Components/ButtonCustom";
-import {RandomQuizzCard} from "@Pages/quizz/Quizz/RandomQuizzCard";
+import {LaunchQuizzOptionsScreen} from "@Pages/quizz/Quizz/LaunchQuizzOptionsScreen";
 import {Slideshow} from "@Pages/quizz/Quizz/Slideshow";
-import {Card, CardsWrapper, CardTitle, Instruction, Subtitle} from "@Components/layout";
+import {Instruction} from "@Components/layout";
 
 import {
-    getAllTrainingCardsOfUser,
     getUserFirebaseData,
     saveUser
 } from "@Utils/firebaseConfig";
 import {State} from "@Utils/redux/store";
 import {setUser} from "@Utils/redux/reducers/user";
 import {notification} from "@Utils/events";
-import {useFetchLanguageToLearn} from "@Hooks/useFetchLanguageToLearn";
-import {useSetNumberOfQuestionsToPick} from "@Hooks/quizz/useSetNumberOfQuestionsToPick";
 import {setQuizzMode} from "@Utils/redux/reducers/quizzMode";
-import {setCardsData} from "@Utils/redux/reducers/cardsData";
 
 interface Props {
 
@@ -30,29 +25,9 @@ export const Quizz: React.FC<Props> = (props) => {
     const quizzMode = useSelector((state: State) => state.quizzMode);
     const cardsData = useSelector((state: State) => state.cardsData);
     const dispatch = useDispatch();
-    const {languageToLearnData} = useFetchLanguageToLearn();
-
-    const { numberOfQuestionsToPick, setNumberOfQuestionsToPick } = useSetNumberOfQuestionsToPick();
 
     const [isLoading, setIsLoading] = useState<"random" | "training" | "trainingsList" | null>(null);
     //dispatch(setQuizzMode(null))
-
-    const handleStartTrainingQuizz = (): void => {
-        if (user.trainingCardsList.length > 0) {
-            setIsLoading("training");
-            getAllTrainingCardsOfUser(user.trainingCardsList, languageToLearnData.languageUid).then(allTrainingCardsOfUser => {
-                dispatch(setQuizzMode("training"));
-                dispatch(setCardsData(allTrainingCardsOfUser));
-                setNumberOfQuestionsToPick(0);
-                setIsLoading(null);
-            }).catch(error => {
-                console.log('error getAllTrainingCardsOfUser Quizz', error);
-                setIsLoading(null);
-            })
-        } else {
-            notification.emit('error', 'There are no cards in the trainings list at the moment.');
-        };
-    };
 
     const handleSuccess = (index: number): void => {
         setIsLoading("trainingsList");
@@ -118,22 +93,7 @@ export const Quizz: React.FC<Props> = (props) => {
                         />
                     }
                 </div>
-                {quizzMode === null &&
-                    <CardsWrapper padding={"0 0 20px 0"} style={{height: `${window.innerHeight*0.8}px`, }}>
-                      <RandomQuizzCard
-                          numberOfQuestionsToPick={numberOfQuestionsToPick}
-                          setNumberOfQuestionsToPick={setNumberOfQuestionsToPick}
-                          setIsLoading={setIsLoading}
-                          setQuizzMode={setQuizzMode}
-                          setCardsData={setCardsData}
-                      />
-                        <Card>
-                            <CardTitle>Training quizz</CardTitle>
-                            <Subtitle>Work on the vocabulary you have difficulties with.</Subtitle>
-                            <ButtonCustom onClick={handleStartTrainingQuizz} isLoading={isLoading === "training" ? true : false}>Start</ButtonCustom>
-                        </Card>
-                    </CardsWrapper>
-                }
+                {quizzMode === null && <LaunchQuizzOptionsScreen />}
             </ContentWrapper>
         </QuizzWrapper>
     )
