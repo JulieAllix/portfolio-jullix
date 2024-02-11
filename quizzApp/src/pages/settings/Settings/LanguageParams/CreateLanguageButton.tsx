@@ -13,12 +13,12 @@ interface Props {
 export const CreateLanguageButton: React.FC<Props> = (props) => {
     const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
     const [newLanguageName, setNewLanguageName] = useState<string>('');
-    const {handleClick} = useAddNewLanguageButton(newLanguageName, setIsAddModalOpen, setNewLanguageName);
+    const {handleAddNewLanguageClick} = useAddNewLanguageButton(newLanguageName, setIsAddModalOpen, setNewLanguageName);
 
     return (
         <div>
             <ButtonCustom onClick={() => setIsAddModalOpen(true)}>Add new language</ButtonCustom>
-            <ModalCustom visible={isAddModalOpen} setVisible={setIsAddModalOpen} title={"Add a new language"} buttonAction={handleClick}>
+            <ModalCustom visible={isAddModalOpen} setVisible={setIsAddModalOpen} title={"Add a new language"} buttonAction={handleAddNewLanguageClick}>
                 <InputCustom label={'New language'} value={newLanguageName} setValue={setNewLanguageName}/>
             </ModalCustom>
         </div>
