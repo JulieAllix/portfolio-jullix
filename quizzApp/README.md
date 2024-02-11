@@ -9,7 +9,7 @@ Open [http://localhost:9090](http://localhost:9090) to view it in the browser.
 
 TO DO :
 
-- Simplifier les fonctions
+- Simplifier les fonctions (useSignUpButton + utils)
 - Modifier getRandomCardsOfUser (à améliorer)
 - Empêcher le random quizz si le nombre de cartes demandé est supérieur au nombre de cartes existant
 - Importer l'ancienne DB
