@@ -18,7 +18,7 @@ interface Props {
 export const LanguageParams: React.FC<Props> = () => {
     const user = useSelector((state: State) => state.user);
     const {languagesdata} = useFetchLanguages();
-    const {isLoading, handleSave} = useSaveUserLanguageParams();
+    const {isLoading, handleSaveUserLanguageParams} = useSaveUserLanguageParams();
 
     const [studiedLanguage, setStudiedLanguage] = useState<{name: string, code: string}>(null);
     const [nativeLanguage, setNativeLanguage] = useState<string>(user.nativeLanguage);
@@ -38,7 +38,7 @@ export const LanguageParams: React.FC<Props> = () => {
                 selectedValue={studiedLanguage}
                 setSelectedValue={setStudiedLanguage}
             />
-            <ButtonCustom onClick={() => handleSave(nativeLanguage, studiedLanguage)} isLoading={isLoading}>Save</ButtonCustom>
+            <ButtonCustom onClick={() => handleSaveUserLanguageParams(nativeLanguage, studiedLanguage)} isLoading={isLoading}>Save</ButtonCustom>
             <CreateLanguageButton />
         </Card>
     );
