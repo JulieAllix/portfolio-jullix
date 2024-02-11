@@ -21,7 +21,7 @@ export const useSuccessButton = () => {
 
     const updateUserData = (cardIndex: number) => {
         const updatedUserData = removeSuccessCardFromUsersTrainingCardsList(cardIndex);
-        saveUser(updatedUserData).then(updateCurrentUserData).catch(handleSaveUserError);
+        saveUser(updatedUserData).then(updateUserState).catch(handleSaveUserError);
     };
 
     const removeSuccessCardFromUsersTrainingCardsList = (cardIndex: number) => {
@@ -38,12 +38,14 @@ export const useSuccessButton = () => {
         return updatedTrainingCardsList;
     };
 
-    const updateCurrentUserData = (): void => {
+    const updateUserState = (): void => {
         getUserFirebaseData(user.userUid).then(_user => {
-            dispatch(setUser(_user));
             notification.emit("success", "This card got removed from your training cards list !");
             setIsLoadingSuccessButton(false);
-        })
+            dispatch(setUser(_user));
+        }).catch(error => {
+            console.error("error getUserFirebaseData", error)
+        });
     };
 
     const handleSaveUserError = (error: Error) => {

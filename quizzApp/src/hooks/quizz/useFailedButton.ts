@@ -22,7 +22,7 @@ export const useFailedButton = () => {
 
     const updateUserData = (cardIndex: number) => {
         const updatedUserData = addFailedCardToUsersTrainingCardsList(cardIndex);
-        saveUser(updatedUserData).then(updateCurrentUserData).catch(handleSaveUserError);
+        saveUser(updatedUserData).then(updateUserState).catch(handleSaveUserError);
     };
 
     const addFailedCardToUsersTrainingCardsList = (index: number): User => {
@@ -39,11 +39,13 @@ export const useFailedButton = () => {
         return updatedTrainingCardsList;
     };
 
-    const updateCurrentUserData = (): void => {
+    const updateUserState = (): void => {
         getUserFirebaseData(user.userUid).then(_user => {
-            dispatch(setUser(_user));
             notification.emit("success", "This card got added to your training cards list !");
             setIsLoadingFailedButton(false);
+            dispatch(setUser(_user));
+        }).catch(error => {
+            console.error("error getUserFirebaseData", error)
         });
     };
 

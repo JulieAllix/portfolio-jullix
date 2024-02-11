@@ -36,9 +36,11 @@ export const saveUser = (userData: User) => {
 };
 
 export const getUserFirebaseData = async (userUid: string): Promise<User> => {
+    console.log(1)
     const userData = await usersRef.doc(userUid).get();
-
+    console.log(2)
     const firebaseUser = await userData.data();
+    console.log(3, firebaseUser)
     if (firebaseUser !== undefined) {
         return firebaseUser
     } else {

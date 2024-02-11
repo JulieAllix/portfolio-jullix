@@ -10,7 +10,8 @@ import {State} from "@Utils/redux/store";
 import {useCheckErrors} from "@Hooks/useCheckErrors";
 import {QuizzContext} from "@Hooks/context/QuizzContext";
 import {CardData} from "@Models/types/bases/quizzApp/Form";
-
+import {User} from "@Models/types/bases/quizzApp/User";
+import {ERROR_SAVING_NEW_CARD_TO_DATABASE} from "@Models/errorMessagesQuizzApp";
 
 export const useCreateNewQuizzCardButton = () => {
     const user = useSelector((state: State) => state.user);
@@ -21,52 +22,76 @@ export const useCreateNewQuizzCardButton = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const handleClick = () => {
-        console.log("checkErrors", checkErrors())
-        if (checkErrors().length > 0) {
-            checkErrors().forEach((error) => {
+    const cardData: CardData = {
+        userUid: user.userUid,
+        cardUid: getRandomNumberId(),
+        nativeLanguageValue: quizzCardData.nativeLanguageValue,
+        languageToLearnValue: quizzCardData.languageToLearnValue,
+        languageUid: languageToLearnData ? languageToLearnData.languageUid : "",
+    };
+
+    const handleCreateNewQuizzCardClick = async (): Promise<void> => {
+        const errors = checkErrors();
+
+        if (errors.length > 0) {
+            errors.forEach((error) => {
                 notification.emit("error", error.message);
             });
         } else {
             setIsLoading(true);
-            const cardData: CardData = {
-                userUid: user.userUid,
-                cardUid: getRandomNumberId(),
-                nativeLanguageValue: quizzCardData.nativeLanguageValue,
-                languageToLearnValue: quizzCardData.languageToLearnValue,
-                languageUid: languageToLearnData ? languageToLearnData.languageUid : "",
-            }
-            createCard(cardData).then(response => {
-                notification.emit('success', 'Your card has been successfully added to the database !');
-                setQuizzCardData({nativeLanguageValue: null, languageToLearnValue: null})
-
-                const updatedTrainingCardsList = [...user.trainingCardsList];
-                updatedTrainingCardsList.push(cardData.cardUid);
-
-                const updatedUser = {
-                    ...user,
-                    numberOfCards: user.numberOfCards + 1,
-                    trainingCardsList: updatedTrainingCardsList
-                };
-                saveUser(updatedUser).then(() => {
-                    getUserFirebaseData(user.userUid).then(userData => {
-                        dispatch(setUser(userData));
-                        setIsLoading(false);
-                    }).catch(error => {
-                        console.error("error getUserFirebaseData Form", error);
-                        setIsLoading(false);
-                    })
-                }).catch(error => {
-                    console.error("error saveUser Form", error);
-                    setIsLoading(false);
-                });
-            }).catch(error => {
-                console.log('error createSpanishData', error);
-                notification.emit('error', "Your card couldn't get added to the database.");
-                setIsLoading(false);
-            });
+            await addCardToDataBase();
+            resetInitialState();
+            await addNewCardToUsersTrainingList();
+            updateUserState();
         }
     }
 
-    return {handleClick, isLoading}
+    const addCardToDataBase = async () => {
+        try {
+            await createCard(cardData);
+            notification.emit('success', 'Your card has been successfully added to the database !');
+        } catch (error) {
+            console.log('error createSpanishData', error);
+            notification.emit('error', ERROR_SAVING_NEW_CARD_TO_DATABASE);
+            setIsLoading(false);
+        }
+    };
+
+    const resetInitialState = (): void => {
+        setQuizzCardData({nativeLanguageValue: null, languageToLearnValue: null})
+        setIsLoading(false);
+    };
+
+    const addNewCardToUsersTrainingList = async (): Promise<void> => {
+        try {
+            const updatedUser = getUpdatedUserData();
+            saveUser(updatedUser)
+        } catch (error) {
+            console.error("error saveUser Form", error);
+            setIsLoading(false);
+        }
+    };
+
+    const getUpdatedUserData = (): User => {
+        const updatedTrainingCardsList = [...user.trainingCardsList];
+        updatedTrainingCardsList.push(cardData.cardUid);
+        const updatedUser = {
+            ...user,
+            numberOfCards: user.numberOfCards + 1,
+            trainingCardsList: updatedTrainingCardsList
+        };
+        return updatedUser;
+    };
+
+    const updateUserState = (): void => {
+        getUserFirebaseData(user.userUid).then(userData => {
+            dispatch(setUser(userData));
+            setIsLoading(false);
+        }).catch(error => {
+            console.error("error getUserFirebaseData Form", error);
+            setIsLoading(false);
+        })
+    };
+
+    return {handleCreateNewQuizzCardClick, isLoading}
 }

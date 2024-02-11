@@ -9,10 +9,10 @@ interface Props {
 }
 
 export const QuizzCardSaveButton: React.FC<Props> = (props) => {
-    const {handleClick, isLoading} = useCreateNewQuizzCardButton();
+    const {handleCreateNewQuizzCardClick, isLoading} = useCreateNewQuizzCardButton();
 
     return (
-        <ButtonCustom isLoading={isLoading} onClick={() => handleClick()} color={"white"}>Save</ButtonCustom>
+        <ButtonCustom isLoading={isLoading} onClick={() => handleCreateNewQuizzCardClick()} color={"white"}>Save</ButtonCustom>
     )
 }
 
