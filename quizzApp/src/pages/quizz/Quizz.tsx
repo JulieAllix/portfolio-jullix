@@ -1,5 +1,4 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useContext} from "react";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 
@@ -7,20 +6,20 @@ import {CurrentQuizzScreen} from "@Pages/quizz/Quizz/CurrentQuizzScreen";
 import {LaunchQuizzOptionsScreen} from "@Pages/quizz/Quizz/LaunchQuizzOptionsScreen";
 import {Instruction} from "@Components/layout";
 
-import {State} from "@Utils/redux/store";
+import {QuizzContext} from "@Hooks/context/QuizzContext";
 
 interface Props {
 
 }
 
 export const Quizz: React.FC<Props> = (props) => {
-    const quizzMode = useSelector((state: State) => state.quizzMode);
+    const {currentQuizzCardsList, quizzMode} = useContext(QuizzContext);
 
     return (
         <QuizzWrapper>
             <ContentWrapper>
                 <Instruction width={"60%"}>{quizzMode === null ? "Quizz mode" : quizzMode === "random" ? "Random quizz" : "Training quizz"}</Instruction>
-                {quizzMode === null ? <LaunchQuizzOptionsScreen /> : <CurrentQuizzScreen />}
+                {quizzMode === null ? <LaunchQuizzOptionsScreen /> : currentQuizzCardsList ? <CurrentQuizzScreen /> : null}
             </ContentWrapper>
         </QuizzWrapper>
     );

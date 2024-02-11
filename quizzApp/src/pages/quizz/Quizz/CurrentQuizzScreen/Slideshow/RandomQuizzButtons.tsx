@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const RandomQuizzButtons: React.FC<Props> = (props) => {
-    const {isLoadingFailedButton, handleClickOnFailed} = useFailedButton();
+    const {isLoadingFailedButton, handleFailedClick} = useFailedButton();
 
     return (
         <SlideshowButtonsWrapper>
@@ -23,7 +23,7 @@ export const RandomQuizzButtons: React.FC<Props> = (props) => {
                 <ButtonCustom onClick={() => props.setShowTranslation(!props.showTranslation)}>{props.showTranslation ? "Question" : "Answer"}</ButtonCustom>
             </SlideshowIndividualButtonWrapper>
             <SlideshowIndividualButtonWrapper>
-                <ButtonCustom isLoading={isLoadingFailedButton} onClick={() => handleClickOnFailed(props.page)}>Failed</ButtonCustom>
+                <ButtonCustom isLoading={isLoadingFailedButton} onClick={() => handleFailedClick(props.page)}>Failed</ButtonCustom>
             </SlideshowIndividualButtonWrapper>
         </SlideshowButtonsWrapper>
     )

@@ -9,6 +9,7 @@ import {State} from "@Utils/redux/store";
 
 import {useCheckErrors} from "@Hooks/useCheckErrors";
 import {QuizzContext} from "@Hooks/context/QuizzContext";
+import {CardData} from "@Models/types/bases/quizzApp/Form";
 
 
 export const useCreateNewQuizzCardButton = () => {
@@ -28,7 +29,7 @@ export const useCreateNewQuizzCardButton = () => {
             });
         } else {
             setIsLoading(true);
-            const cardData = {
+            const cardData: CardData = {
                 userUid: user.userUid,
                 cardUid: getRandomNumberId(),
                 nativeLanguageValue: quizzCardData.nativeLanguageValue,

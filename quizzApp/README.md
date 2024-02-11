@@ -9,8 +9,7 @@ Open [http://localhost:9090](http://localhost:9090) to view it in the browser.
 
 TO DO :
 
-- Settings bug : "20 cards created" + number devrait être rose
-- Mettre plus d'éléments dans QuizzContext (cardsData et quizzMode)
 - Simplifier les fonctions
+- Modifier getRandomCardsOfUser (à améliorer)
+- Empêcher le random quizz si le nombre de cartes demandé est supérieur au nombre de cartes existant
 - Importer l'ancienne DB
-

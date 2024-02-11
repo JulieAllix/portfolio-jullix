@@ -1,25 +1,22 @@
-import React from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, {useContext} from "react";
 import styled from "styled-components";
 
 import {Slideshow} from "@Pages/quizz/Quizz/CurrentQuizzScreen/Slideshow";
 
-import {setQuizzMode} from "@Utils/redux/reducers/quizzMode";
-import {State} from "@Utils/redux/store";
+import {QuizzContext} from "@Hooks/context/QuizzContext";
 
 interface Props {
 
 }
 
 export const CurrentQuizzScreen: React.FC<Props> = (props) => {
-    const cardsData = useSelector((state: State) => state.cardsData);
-    const dispatch = useDispatch();
+    const {currentQuizzCardsList, setQuizzMode} = useContext(QuizzContext);
 
     return (
         <CurrentQuizzScreenWrapper>
             <QuizzDetailsWrapper>
-                <Text>{cardsData.length} question{cardsData.length > 1 ? 's': ''}</Text>
-                <Text onClick={() => dispatch(setQuizzMode(null))}>Stop quizz</Text>
+                <Text>{currentQuizzCardsList.length} question{currentQuizzCardsList.length > 1 ? 's': ''}</Text>
+                <Text onClick={() => setQuizzMode(null)}>Stop quizz</Text>
             </QuizzDetailsWrapper>
             <Slideshow />
         </CurrentQuizzScreenWrapper>

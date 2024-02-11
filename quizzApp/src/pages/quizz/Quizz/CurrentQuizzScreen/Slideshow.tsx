@@ -1,13 +1,12 @@
-import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, {useContext, useState} from "react";
+import {useDispatch} from "react-redux";
 import {motion, AnimatePresence} from "framer-motion";
 import styled from "styled-components";
 
 import {RandomQuizzButtons} from "@Pages/quizz/Quizz/CurrentQuizzScreen/Slideshow/RandomQuizzButtons";
 import {TrainingQuizzButtons} from "@Pages/quizz/Quizz/CurrentQuizzScreen/Slideshow/TrainingQuizzButtons";
 
-import {State} from "@Utils/redux/store";
-import {setQuizzMode} from "@Utils/redux/reducers/quizzMode";
+import {QuizzContext} from "@Hooks/context/QuizzContext";
 
 const variants = {
     enter: direction => ({
@@ -31,14 +30,13 @@ interface Props {
 export const Slideshow: React.FC<Props> = (props) => {
     const dispatch = useDispatch();
 
-    const quizzMode = useSelector((state: State) => state.quizzMode);
-    const cardsData = useSelector((state: State) => state.cardsData);
+    const {currentQuizzCardsList, quizzMode, setQuizzMode} = useContext(QuizzContext);
 
     const [[page, direction], setPage] = useState<number[]>([0, 0]);
     const [showTranslation, setShowTranslation] = useState<boolean>(false);
 
     const paginate = (direction): void => {
-        if (page + direction > cardsData.length -1) {
+        if (page + direction > currentQuizzCardsList.length -1) {
             dispatch(setQuizzMode(null))
         } else if (page + direction === -1) {
 
@@ -71,8 +69,8 @@ export const Slideshow: React.FC<Props> = (props) => {
                     }}
                 >
                     <CardContent isAnswer={showTranslation}>
-                        {!showTranslation && cardsData[page]?.nativeLanguageValue}
-                        {showTranslation && cardsData[page]?.languageToLearnValue}
+                        {!showTranslation && currentQuizzCardsList[page]?.nativeLanguageValue}
+                        {showTranslation && currentQuizzCardsList[page]?.languageToLearnValue}
                     </CardContent>
                 </MotionDiv>
             </AnimatePresence>

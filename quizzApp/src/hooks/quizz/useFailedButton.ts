@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import {getUserFirebaseData, saveUser} from "@Utils/firebaseConfig";
@@ -6,15 +6,26 @@ import {setUser} from "@Utils/redux/reducers/user";
 import {notification} from "@Utils/events";
 import {State} from "@Utils/redux/store";
 import {User} from "@Models/types/bases/quizzApp/User";
+import {QuizzContext} from "@Hooks/context/QuizzContext";
 
 export const useFailedButton = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: State) => state.user);
-    const cardsData = useSelector((state: State) => state.cardsData);
+    const {currentQuizzCardsList} = useContext(QuizzContext);
 
     const [isLoadingFailedButton, setIsLoadingFailedButton] = useState<boolean>(false);
 
-    const getUpdatedUserData = (index: number): User => {
+    const handleFailedClick = (cardIndex: number): void => {
+        setIsLoadingFailedButton(true);
+        updateUserData(cardIndex);
+    };
+
+    const updateUserData = (cardIndex: number) => {
+        const updatedUserData = addFailedCardToUsersTrainingCardsList(cardIndex);
+        saveUser(updatedUserData).then(updateCurrentUserData).catch(handleSaveUserError);
+    };
+
+    const addFailedCardToUsersTrainingCardsList = (index: number): User => {
         const updatedTrainingCardsList = getTrainingCardsListUpdatedWithNewFailedCard(index);
         return {
             ...user,
@@ -24,7 +35,7 @@ export const useFailedButton = () => {
 
     const getTrainingCardsListUpdatedWithNewFailedCard = (index: number): number[] => {
         const updatedTrainingCardsList = [...user.trainingCardsList];
-        updatedTrainingCardsList.push(cardsData[index].cardUid);
+        updatedTrainingCardsList.push(currentQuizzCardsList[index].cardUid);
         return updatedTrainingCardsList;
     };
 
@@ -36,22 +47,14 @@ export const useFailedButton = () => {
         });
     };
 
-    const handleClickOnFailed = (index: number): void => {
-        setIsLoadingFailedButton(true);
-
-        const updatedUserData = getUpdatedUserData(index);
-
-        saveUser(updatedUserData).then(() => {
-            updateCurrentUserData();
-        }).catch(error => {
-            notification.emit("error", "This card couldn't be added to your training cards list.");
-            console.log("error saveUser : ", error)
-            setIsLoadingFailedButton(false);
-        });
+    const handleSaveUserError = (error: Error): void => {
+        notification.emit("error", "This card couldn't be added to your training cards list.");
+        console.error("error saveUser : ", error);
+        setIsLoadingFailedButton(false);
     };
 
     return {
         isLoadingFailedButton,
-        handleClickOnFailed: handleClickOnFailed,
+        handleFailedClick: handleFailedClick,
     };
 };

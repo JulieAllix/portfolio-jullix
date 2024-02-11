@@ -1,49 +1,49 @@
-import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useContext, useState} from "react";
+import {useSelector} from "react-redux";
 
 import {useFetchLanguageToLearn} from "@Hooks/useFetchLanguageToLearn";
 import {useSetNumberOfQuestionsToPick} from "@Hooks/quizz/useSetNumberOfQuestionsToPick";
 import {getAllTrainingCardsOfUser} from "@Utils/firebaseConfig";
-import {setQuizzMode} from "@Utils/redux/reducers/quizzMode";
-import {setCardsData} from "@Utils/redux/reducers/cardsData";
+
 import {notification} from "@Utils/events";
 import {State} from "@Utils/redux/store";
-import {CardData} from "@Models/types/bases/quizzApp/Form";
+import {QuizzContext} from "@Hooks/context/QuizzContext";
+import {ERROR_FETCHING_TRAINING_CARDS_MESSAGE, ERROR_NO_CARDS_MESSAGE} from "@Models/errorMessagesQuizzApp";
 
 export const useStartTrainingQuizzButton = () => {
-    const dispatch = useDispatch();
     const user = useSelector((state: State) => state.user);
+    const {setCurrentQuizzCardsList, setQuizzMode} = useContext(QuizzContext);
     const {languageToLearnData} = useFetchLanguageToLearn();
     const { setNumberOfQuestionsToPick } = useSetNumberOfQuestionsToPick();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const userHasTrainingCards = user.trainingCardsList.length > 0;
-    console.log("user.trainingCardsList", user.trainingCardsList);
 
-    const handleQuizzCreation = (allTrainingCardsOfUser: CardData[]): void => {
-        dispatch(setQuizzMode("training"));
-        dispatch(setCardsData(allTrainingCardsOfUser));
-    };
-
-    const resetSettingsToInitialState = (): void => {
-        setNumberOfQuestionsToPick(0);
-        setIsLoading(false);
-    };
-
-    const startTrainingQuizzClick = (): void => {
+    const startTrainingQuizzClick = async (): Promise<void> => {
         if (userHasTrainingCards) {
             setIsLoading(true);
-            getAllTrainingCardsOfUser(user.trainingCardsList, languageToLearnData.languageUid).then(allTrainingCardsOfUser => {
-                handleQuizzCreation(allTrainingCardsOfUser)
-                resetSettingsToInitialState();
-            }).catch(error => {
-                console.log('error getAllTrainingCardsOfUser in useStartTrainingQuizzButton', error);
-                setIsLoading(false);
-            })
+            await createAndSetQuizzCardsList();
+            setQuizzMode("training");
+            resetInitialState();
         } else {
-            notification.emit('error', 'There are no cards in the trainings list at the moment.');
-        };
+            notification.emit('error', ERROR_NO_CARDS_MESSAGE);
+        }
+    };
+
+    const createAndSetQuizzCardsList = async ():  Promise<void> => {
+        try {
+            const trainingCards = await getAllTrainingCardsOfUser(user.trainingCardsList, languageToLearnData.languageUid);
+            setCurrentQuizzCardsList(trainingCards);
+        } catch (error) {
+            notification.emit('error', ERROR_FETCHING_TRAINING_CARDS_MESSAGE);
+            console.error('Error fetching training cards:', error);
+        }
+    };
+
+    const resetInitialState = (): void => {
+        setNumberOfQuestionsToPick(0);
+        setIsLoading(false);
     };
 
     return {

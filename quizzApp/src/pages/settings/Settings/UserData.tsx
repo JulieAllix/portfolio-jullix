@@ -19,12 +19,12 @@ export const UserData: React.FC<Props> = (props) => {
         <Card>
             <CardTitle>Personal data</CardTitle>
             <Subtitle>{user.email}</Subtitle>
-            <Subtitle><Accent>{user.numberOfCards}</Accent> cards created</Subtitle>
+            <Subtitle><Accent>{user.numberOfCards}</Accent> card{user.numberOfCards > 1 ? "s" : ""} created</Subtitle>
             <ButtonCustom onClick={() => user ? handleResetPassword(user.email) : () => {}}>Reset password</ButtonCustom>
         </Card>
     );
 };
 
 const Accent = styled.span`
-  col: var(--m-primary);
+  color: var(--m-primary);
 `;

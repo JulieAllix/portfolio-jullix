@@ -1,69 +1,60 @@
-import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useContext, useState} from "react";
 
 import {useCheckErrors} from "@Hooks/useCheckErrors";
-import {useFetchLanguageToLearn} from "@Hooks/useFetchLanguageToLearn";
+import {useFetchRandomCardsOfUser} from "@Hooks/quizz/useFetchRandomCardsOfUser";
 import {useSetNumberOfQuestionsToPick} from "@Hooks/quizz/useSetNumberOfQuestionsToPick";
-import {getRandomCardsOfUser} from "@Utils/firebaseConfig";
+
 import {notification} from "@Utils/events";
-import {setCardsData} from "@Utils/redux/reducers/cardsData";
-import {setQuizzMode} from "@Utils/redux/reducers/quizzMode";
-import {State} from "@Utils/redux/store";
 import {CardData} from "@Models/types/bases/quizzApp/Form";
+import {QuizzContext} from "@Hooks/context/QuizzContext";
+import {ERROR_FETCHING_RANDOM_CARDS_MESSAGE} from "@Models/errorMessagesQuizzApp";
 
 export const useStartRandomQuizzButton = (numberOfQuestionsToPick: number) => {
-    const dispatch = useDispatch();
-    const user = useSelector((state: State) => state.user);
+    const {setCurrentQuizzCardsList, setQuizzMode} = useContext(QuizzContext);
     const { checkErrors } = useCheckErrors({numberOfQuestionsToPick: numberOfQuestionsToPick});
     const { setNumberOfQuestionsToPick } = useSetNumberOfQuestionsToPick();
-    const {languageToLearnData} = useFetchLanguageToLearn();
+    const { fetchRandomCardsOfUser } = useFetchRandomCardsOfUser();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const isNumberOfQuestionsToPickHigherThanTotalNumberOfCards = (responseCardsData): boolean => Number(numberOfQuestionsToPick) > responseCardsData.length;
+    const startRandomQuizzClick = async (): Promise<void> => {
+        const errors = checkErrors();
 
-    const selectedQuestionIndexes: number [] = [];
-    const randomlySelectedData = [];
-
-    const handleQuizzCreation = (responseCardsData: CardData[]): void => {
-        dispatch(setQuizzMode("random"));
-        createRandomlySelectedData(responseCardsData);
-        dispatch(setCardsData(randomlySelectedData));
-    };
-
-    const createRandomlySelectedData = (responseCardsData: CardData[]): void => {
-        do {
-            const questionIndex = Math.floor(responseCardsData.length * Math.random())
-            if (!selectedQuestionIndexes.includes(questionIndex)) {
-                randomlySelectedData.push(responseCardsData[questionIndex]);
-                selectedQuestionIndexes.push(questionIndex);
-            }
-        } while (randomlySelectedData.length < numberOfQuestionsToPick);
-    };
-
-    const resetSettingsToInitialState = (): void => {
-        setNumberOfQuestionsToPick(0);
-        setIsLoading(false);
-    };
-
-    const startRandomQuizzClick = (): void => {
-        if (checkErrors().length > 0) {
-            checkErrors().forEach((error) => notification.emit("error", error.message));
+        if (errors.length > 0) {
+            errors.forEach((error) => notification.emit("error", error.message));
         } else {
             setIsLoading(true);
-            console.log("user", user)
-            getRandomCardsOfUser(user.userUid, Number(numberOfQuestionsToPick), languageToLearnData.languageUid).then(responseCardsData => {
-                if (isNumberOfQuestionsToPickHigherThanTotalNumberOfCards(responseCardsData)) {
-                    notification.emit('error', `Please choose a number of questions below or equal to ${responseCardsData.length} (the total number of cards you have created so far).`);
-                } else {
-                    handleQuizzCreation(responseCardsData);
-                    resetSettingsToInitialState();
-                };
-            }).catch(error => {
-                console.log('error getRandomCardsOfUser in useStartRandomQuizzButton', error);
-                setIsLoading(false);
-            });
-        };
+            await createAndSetQuizzCardsList();
+            setQuizzMode("random");
+            resetInitialState();
+        }
+    };
+
+    const createAndSetQuizzCardsList = async ():  Promise<void> => {
+        try {
+            const cardsList = await fetchRandomCardsOfUser(Number(numberOfQuestionsToPick));
+            const shuffledCards = shuffleCards(cardsList);
+            setCurrentQuizzCardsList(shuffledCards);
+        } catch (error) {
+            notification.emit('error', ERROR_FETCHING_RANDOM_CARDS_MESSAGE);
+            console.error('Error fetching training cards:', error);
+        }
+    };
+
+    const shuffleCards = (cardsList: CardData[]): CardData[] => {
+        const shuffledCards = [...cardsList];
+
+        for (let i = shuffledCards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
+        }
+
+        return shuffledCards;
+    };
+
+    const resetInitialState = (): void => {
+        setNumberOfQuestionsToPick(0);
+        setIsLoading(false);
     };
 
     return {

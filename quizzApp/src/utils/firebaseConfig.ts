@@ -11,9 +11,9 @@ firebase.initializeApp(env.firebaseEnv);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const usersRef = firestore.collection('users') as CollectionReference<User>;
-const languagesRef = firestore.collection('languages') as CollectionReference<Language>;
-const studyCardsRef = firestore.collection('studyCards') as CollectionReference<CardData>;
+export const usersRef = firestore.collection('users') as CollectionReference<User>;
+export const languagesRef = firestore.collection('languages') as CollectionReference<Language>;
+export const studyCardsRef = firestore.collection('studyCards') as CollectionReference<CardData>;
 
 export const registerWithEmailAndPassword = (email:string,password:string) =>{
     return auth.createUserWithEmailAndPassword(email,password);
@@ -86,39 +86,6 @@ export const getRandomNumberId = (): number => {
     }
     return Number(array.join(''));
 }
-
-export const getRandomCardsOfUser = async (userUid: string, numberOfQuestions: number, languageUid: string): Promise<CardData[]> => {
-    console.log("userUid", userUid)
-    console.log("languageUid", languageUid)
-    const arrayOfRandomUids = [];
-    for (let i = 0; i < numberOfQuestions; i++) {
-        arrayOfRandomUids.push(getRandomNumberId())
-    };
-
-    const cardsDataArray = arrayOfRandomUids.map(async (randomUid: string) => {
-        const array = (await studyCardsRef.where("userUid", "==", userUid)
-            .where("languageUid", "==", languageUid)
-            //.where("cardUid", ">=", randomUid)
-            .orderBy("cardUid").limit(1).get()).docs.map(document => document.data());
-        return array[0];
-    })
-
-    return Promise.all(cardsDataArray).then(response => {
-        const _cardsDataArray = response.map((cardData: CardData) => {
-            console.log("cardData", cardData)
-            if (cardData !== undefined) {
-                return {
-                    userUid: cardData.userUid,
-                    cardUid: cardData.cardUid,
-                    nativeLanguageValue: cardData.nativeLanguageValue,
-                    languageToLearnValue: cardData.languageToLearnValue,
-                    languageUid: cardData.languageUid
-                }
-            } else return null
-        });
-        return _cardsDataArray.filter(data => data !== null);
-    })
-};
 
 export const getAllTrainingCardsOfUser = async (trainingCardsList: number[], languageUid: string): Promise<CardData[]> => {
     const data = await studyCardsRef.where("cardUid", "in", trainingCardsList).where("languageUid", "==", languageUid).get();

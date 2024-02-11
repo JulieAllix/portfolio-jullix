@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const TrainingQuizzButtons: React.FC<Props> = (props) => {
-    const {isLoadingSuccessButton, handleClickOnSuccess} = useSuccessButton();
+    const {isLoadingSuccessButton, handleSuccessClick} = useSuccessButton();
 
     return (
         <SlideshowButtonsWrapper>
@@ -20,7 +20,7 @@ export const TrainingQuizzButtons: React.FC<Props> = (props) => {
                 <ButtonCustom color={"white"} onClick={() => props.setShowTranslation(!props.showTranslation)}>{props.showTranslation ? "Question" : "Answer"}</ButtonCustom>
             </SlideshowIndividualButtonWrapper>
             <SlideshowIndividualButtonWrapper>
-                <ButtonCustom color={"white"} isLoading={isLoadingSuccessButton} onClick={() => handleClickOnSuccess(props.page)}>Success</ButtonCustom>
+                <ButtonCustom color={"white"} isLoading={isLoadingSuccessButton} onClick={() => handleSuccessClick(props.page)}>Success</ButtonCustom>
             </SlideshowIndividualButtonWrapper>
         </SlideshowButtonsWrapper>
     )

@@ -16,7 +16,7 @@ export const LaunchQuizzOptionsScreen: React.FC<Props> = (props) => {
 
     return (
         <LaunchQuizzOptionsScreenWrapper>
-            <CardsWrapper padding={"0 0 20px 0"} style={{height: `${window.innerHeight*0.8}px`, }}>
+            <CardsWrapper padding={"0 0 20px 0"} style={{height: `${window.innerHeight*0.75}px`, }}>
                 <RandomQuizzCard
                     numberOfQuestionsToPick={numberOfQuestionsToPick}
                     setNumberOfQuestionsToPick={setNumberOfQuestionsToPick}
