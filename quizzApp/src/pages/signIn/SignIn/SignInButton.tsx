@@ -10,9 +10,9 @@ interface Props {
 }
 
 export const SignInButton: React.FC<Props> = (props) => {
-    const { isLoading, handleClick } = useSignInButton(props.signInData);
+    const { isLoading, handleSignInClick } = useSignInButton(props.signInData);
 
     return (
-        <ButtonCustom isLoading={isLoading} onClick={handleClick}>Sign in</ButtonCustom>
+        <ButtonCustom isLoading={isLoading} onClick={handleSignInClick}>Sign in</ButtonCustom>
     );
 };
