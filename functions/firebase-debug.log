@@ -1,37 +1,199 @@
-[debug] [2024-02-11T12:53:09.995Z] ----------------------------------------------------------------------
-[debug] [2024-02-11T12:53:09.999Z] Command:       /usr/local/bin/node /usr/local/bin/firebase emulators:start --only functions
-[debug] [2024-02-11T12:53:09.999Z] CLI Version:   13.0.2
-[debug] [2024-02-11T12:53:09.999Z] Platform:      darwin
-[debug] [2024-02-11T12:53:10.000Z] Node Version:  v18.19.0
-[debug] [2024-02-11T12:53:10.001Z] Time:          Sun Feb 11 2024 13:53:10 GMT+0100 (Central European Standard Time)
-[debug] [2024-02-11T12:53:10.001Z] ----------------------------------------------------------------------
+[debug] [2024-02-14T16:00:29.547Z] ----------------------------------------------------------------------
+[debug] [2024-02-14T16:00:29.549Z] Command:       /usr/local/bin/node /usr/local/bin/firebase emulators:start --only functions
+[debug] [2024-02-14T16:00:29.549Z] CLI Version:   13.0.2
+[debug] [2024-02-14T16:00:29.549Z] Platform:      darwin
+[debug] [2024-02-14T16:00:29.550Z] Node Version:  v18.19.0
+[debug] [2024-02-14T16:00:29.551Z] Time:          Wed Feb 14 2024 17:00:29 GMT+0100 (Central European Standard Time)
+[debug] [2024-02-14T16:00:29.551Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2024-02-11T12:53:10.095Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2024-02-11T12:53:10.095Z] > authorizing via signed-in user (allixjulie@gmail.com)
+[debug] [2024-02-14T16:00:29.554Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-02-14T16:00:29.648Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-14T16:00:29.648Z] > authorizing via signed-in user (julie.allix@mobileo.tech)
 [info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
-[debug] [2024-02-11T12:53:10.719Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2024-02-11T12:53:10.719Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
-[debug] [2024-02-11T12:53:10.725Z] [hub] writing locator at /var/folders/p3/n2tgb2616rj01pvx_p2nwhq80000gn/T/hub-portfolio-jallix.json
-[debug] [2024-02-11T12:53:11.109Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2024-02-11T12:53:11.110Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
-[debug] [2024-02-11T12:53:11.110Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[debug] [2024-02-14T16:00:30.263Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-02-14T16:00:30.263Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2024-02-14T16:00:30.271Z] [hub] writing locator at /var/folders/p3/n2tgb2616rj01pvx_p2nwhq80000gn/T/hub-portfolio-jallix.json
+[debug] [2024-02-14T16:00:30.681Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-02-14T16:00:30.682Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2024-02-14T16:00:30.682Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
 [warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, hosting, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, hosting, pubsub, storage\u001b[22m"}}
-[debug] [2024-02-11T12:53:11.111Z] defaultcredentials: writing to file /Users/julieallix/.config/firebase/allixjulie_gmail_com_application_default_credentials.json
-[debug] [2024-02-11T12:53:11.116Z] Setting GAC to /Users/julieallix/.config/firebase/allixjulie_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /Users/julieallix/.config/firebase/allixjulie_gmail_com_application_default_credentials.json"}}
-[debug] [2024-02-11T12:53:11.118Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-jallix/adminSdkConfig [none]
-[debug] [2024-02-11T12:53:11.673Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-jallix/adminSdkConfig 200
-[debug] [2024-02-11T12:53:11.673Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-jallix/adminSdkConfig {"projectId":"portfolio-jallix","storageBucket":"portfolio-jallix.appspot.com","locationId":"europe-west"}
-[debug] [2024-02-11T12:53:11.706Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
-[debug] [2024-02-11T12:53:11.706Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
-[debug] [2024-02-11T12:53:11.706Z] Starting Emulator UI with command {"binary":"node","args":["/Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[debug] [2024-02-14T16:00:30.683Z] defaultcredentials: writing to file /Users/julieallix/.config/firebase/julie_allix_mobileo.tech_application_default_credentials.json
+[debug] [2024-02-14T16:00:30.690Z] Setting GAC to /Users/julieallix/.config/firebase/julie_allix_mobileo.tech_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /Users/julieallix/.config/firebase/julie_allix_mobileo.tech_application_default_credentials.json"}}
+[debug] [2024-02-14T16:00:30.691Z] > refreshing access token with scopes: []
+[debug] [2024-02-14T16:00:30.692Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-02-14T16:00:30.692Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-02-14T16:00:30.878Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-02-14T16:00:30.878Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-02-14T16:00:30.929Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-jallix/adminSdkConfig [none]
+[debug] [2024-02-14T16:00:30.978Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-02-14T16:00:30.979Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-02-14T16:00:31.330Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-jallix/adminSdkConfig 403
+[debug] [2024-02-14T16:00:31.330Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-jallix/adminSdkConfig {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2024-02-14T16:00:31.331Z] Failed to get Admin SDK config for portfolio-jallix, falling back to cache Failed to get Admin SDK for Firebase project portfolio-jallix. Please make sure the project exists and your account has permission to access it. {"name":"FirebaseError","children":[],"exit":2,"message":"Failed to get Admin SDK for Firebase project portfolio-jallix. Please make sure the project exists and your account has permission to access it.","original":{"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}},"response":{"statusCode":403}},"exit":1,"message":"HTTP Error: 403, The caller does not have permission","status":403},"status":500}
+[info] i  ui: downloading ui-v1.11.7.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.11.7.zip..."}}
+[debug] [2024-02-14T16:00:31.341Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.7.zip 
+[debug] [2024-02-14T16:00:31.496Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.7.zip 200
+[debug] [2024-02-14T16:00:31.496Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.11.7.zip [stream]
+[debug] [2024-02-14T16:00:31.824Z] Data is 3064105
+[debug] [2024-02-14T16:00:31.825Z] [unzip] Entry: client/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-02-14T16:00:31.825Z] [unzip] Processing entry: client/
+[debug] [2024-02-14T16:00:31.825Z] [unzip] mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/
+[debug] [2024-02-14T16:00:31.825Z] [unzip] Entry: client/favicon.ico (compressed_size=2497 bytes, uncompressed_size=7406 bytes)
+[debug] [2024-02-14T16:00:31.825Z] [unzip] Processing entry: client/favicon.ico
+[debug] [2024-02-14T16:00:31.825Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.825Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/favicon.ico
+[debug] [2024-02-14T16:00:31.828Z] [unzip] Entry: client/apple-touch-icon.png (compressed_size=7231 bytes, uncompressed_size=7367 bytes)
+[debug] [2024-02-14T16:00:31.828Z] [unzip] Processing entry: client/apple-touch-icon.png
+[debug] [2024-02-14T16:00:31.828Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.829Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/apple-touch-icon.png
+[debug] [2024-02-14T16:00:31.829Z] [unzip] Entry: client/android-chrome-512x512.png (compressed_size=16987 bytes, uncompressed_size=18186 bytes)
+[debug] [2024-02-14T16:00:31.829Z] [unzip] Processing entry: client/android-chrome-512x512.png
+[debug] [2024-02-14T16:00:31.829Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.829Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/android-chrome-512x512.png
+[debug] [2024-02-14T16:00:31.830Z] [unzip] Entry: client/assets/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-02-14T16:00:31.831Z] [unzip] Processing entry: client/assets/
+[debug] [2024-02-14T16:00:31.831Z] [unzip] mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/
+[debug] [2024-02-14T16:00:31.831Z] [unzip] Entry: client/assets/extensions/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-02-14T16:00:31.832Z] [unzip] Processing entry: client/assets/extensions/
+[debug] [2024-02-14T16:00:31.832Z] [unzip] mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/extensions/
+[debug] [2024-02-14T16:00:31.832Z] [unzip] Entry: client/assets/extensions/default-extension.png (compressed_size=1646 bytes, uncompressed_size=1657 bytes)
+[debug] [2024-02-14T16:00:31.832Z] [unzip] Processing entry: client/assets/extensions/default-extension.png
+[debug] [2024-02-14T16:00:31.832Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/extensions
+[debug] [2024-02-14T16:00:31.832Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/extensions/default-extension.png
+[debug] [2024-02-14T16:00:31.834Z] [unzip] Entry: client/assets/index.58ca09f7.css (compressed_size=37601 bytes, uncompressed_size=321252 bytes)
+[debug] [2024-02-14T16:00:31.834Z] [unzip] Processing entry: client/assets/index.58ca09f7.css
+[debug] [2024-02-14T16:00:31.834Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets
+[debug] [2024-02-14T16:00:31.834Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/index.58ca09f7.css
+[debug] [2024-02-14T16:00:31.836Z] [unzip] Entry: client/assets/index.c2583d42.js (compressed_size=526232 bytes, uncompressed_size=1860152 bytes)
+[debug] [2024-02-14T16:00:31.836Z] [unzip] Processing entry: client/assets/index.c2583d42.js
+[debug] [2024-02-14T16:00:31.836Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets
+[debug] [2024-02-14T16:00:31.836Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/index.c2583d42.js
+[debug] [2024-02-14T16:00:31.844Z] [unzip] Entry: client/assets/provider-icons/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-02-14T16:00:31.844Z] [unzip] Processing entry: client/assets/provider-icons/
+[debug] [2024-02-14T16:00:31.844Z] [unzip] mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/
+[debug] [2024-02-14T16:00:31.844Z] [unzip] Entry: client/assets/provider-icons/auth_service_oidc.svg (compressed_size=414 bytes, uncompressed_size=858 bytes)
+[debug] [2024-02-14T16:00:31.844Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_oidc.svg
+[debug] [2024-02-14T16:00:31.844Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.844Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_oidc.svg
+[debug] [2024-02-14T16:00:31.845Z] [unzip] Entry: client/assets/provider-icons/auth_service_yahoo.svg (compressed_size=577 bytes, uncompressed_size=1182 bytes)
+[debug] [2024-02-14T16:00:31.845Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_yahoo.svg
+[debug] [2024-02-14T16:00:31.845Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.845Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_yahoo.svg
+[debug] [2024-02-14T16:00:31.846Z] [unzip] Entry: client/assets/provider-icons/auth_service_phone.svg (compressed_size=261 bytes, uncompressed_size=414 bytes)
+[debug] [2024-02-14T16:00:31.846Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_phone.svg
+[debug] [2024-02-14T16:00:31.846Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.846Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_phone.svg
+[debug] [2024-02-14T16:00:31.846Z] [unzip] Entry: client/assets/provider-icons/auth_service_saml.svg (compressed_size=575 bytes, uncompressed_size=1226 bytes)
+[debug] [2024-02-14T16:00:31.847Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_saml.svg
+[debug] [2024-02-14T16:00:31.847Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.847Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_saml.svg
+[debug] [2024-02-14T16:00:31.847Z] [unzip] Entry: client/assets/provider-icons/auth_service_mslive.svg (compressed_size=203 bytes, uncompressed_size=378 bytes)
+[debug] [2024-02-14T16:00:31.847Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_mslive.svg
+[debug] [2024-02-14T16:00:31.847Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.847Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_mslive.svg
+[debug] [2024-02-14T16:00:31.848Z] [unzip] Entry: client/assets/provider-icons/auth_service_facebook.svg (compressed_size=289 bytes, uncompressed_size=457 bytes)
+[debug] [2024-02-14T16:00:31.848Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_facebook.svg
+[debug] [2024-02-14T16:00:31.848Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.848Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_facebook.svg
+[debug] [2024-02-14T16:00:31.849Z] [unzip] Entry: client/assets/provider-icons/auth_service_play_games.svg (compressed_size=565 bytes, uncompressed_size=1173 bytes)
+[debug] [2024-02-14T16:00:31.849Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_play_games.svg
+[debug] [2024-02-14T16:00:31.849Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.849Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_play_games.svg
+[debug] [2024-02-14T16:00:31.849Z] [unzip] Entry: client/assets/provider-icons/auth_service_github.svg (compressed_size=466 bytes, uncompressed_size=838 bytes)
+[debug] [2024-02-14T16:00:31.849Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_github.svg
+[debug] [2024-02-14T16:00:31.850Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.850Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_github.svg
+[debug] [2024-02-14T16:00:31.850Z] [unzip] Entry: client/assets/provider-icons/auth_service_apple.svg (compressed_size=230 bytes, uncompressed_size=334 bytes)
+[debug] [2024-02-14T16:00:31.850Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_apple.svg
+[debug] [2024-02-14T16:00:31.850Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.850Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_apple.svg
+[debug] [2024-02-14T16:00:31.851Z] [unzip] Entry: client/assets/provider-icons/auth_service_google.svg (compressed_size=409 bytes, uncompressed_size=720 bytes)
+[debug] [2024-02-14T16:00:31.851Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_google.svg
+[debug] [2024-02-14T16:00:31.851Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.851Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_google.svg
+[debug] [2024-02-14T16:00:31.851Z] [unzip] Entry: client/assets/provider-icons/auth_service_email.svg (compressed_size=228 bytes, uncompressed_size=326 bytes)
+[debug] [2024-02-14T16:00:31.851Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_email.svg
+[debug] [2024-02-14T16:00:31.851Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.851Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_email.svg
+[debug] [2024-02-14T16:00:31.852Z] [unzip] Entry: client/assets/provider-icons/auth_service_twitter.svg (compressed_size=444 bytes, uncompressed_size=751 bytes)
+[debug] [2024-02-14T16:00:31.852Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_twitter.svg
+[debug] [2024-02-14T16:00:31.852Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.852Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_twitter.svg
+[debug] [2024-02-14T16:00:31.853Z] [unzip] Entry: client/assets/provider-icons/auth_service_game_center.svg (compressed_size=991 bytes, uncompressed_size=3921 bytes)
+[debug] [2024-02-14T16:00:31.853Z] [unzip] Processing entry: client/assets/provider-icons/auth_service_game_center.svg
+[debug] [2024-02-14T16:00:31.853Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons
+[debug] [2024-02-14T16:00:31.853Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/provider-icons/auth_service_game_center.svg
+[debug] [2024-02-14T16:00:31.853Z] [unzip] Entry: client/assets/index.c2583d42.js.map (compressed_size=1778557 bytes, uncompressed_size=7961927 bytes)
+[debug] [2024-02-14T16:00:31.853Z] [unzip] Processing entry: client/assets/index.c2583d42.js.map
+[debug] [2024-02-14T16:00:31.853Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets
+[debug] [2024-02-14T16:00:31.853Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/index.c2583d42.js.map
+[debug] [2024-02-14T16:00:31.881Z] [unzip] Entry: client/assets/img/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-02-14T16:00:31.881Z] [unzip] Processing entry: client/assets/img/
+[debug] [2024-02-14T16:00:31.881Z] [unzip] mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/img/
+[debug] [2024-02-14T16:00:31.882Z] [unzip] Entry: client/assets/img/database.png (compressed_size=29449 bytes, uncompressed_size=29988 bytes)
+[debug] [2024-02-14T16:00:31.882Z] [unzip] Processing entry: client/assets/img/database.png
+[debug] [2024-02-14T16:00:31.882Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/img
+[debug] [2024-02-14T16:00:31.882Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/assets/img/database.png
+[debug] [2024-02-14T16:00:31.882Z] [unzip] Entry: client/safari-pinned-tab.svg (compressed_size=838 bytes, uncompressed_size=1504 bytes)
+[debug] [2024-02-14T16:00:31.882Z] [unzip] Processing entry: client/safari-pinned-tab.svg
+[debug] [2024-02-14T16:00:31.883Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.883Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/safari-pinned-tab.svg
+[debug] [2024-02-14T16:00:31.883Z] [unzip] Entry: client/mstile-150x150.png (compressed_size=5406 bytes, uncompressed_size=5723 bytes)
+[debug] [2024-02-14T16:00:31.883Z] [unzip] Processing entry: client/mstile-150x150.png
+[debug] [2024-02-14T16:00:31.883Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.883Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/mstile-150x150.png
+[debug] [2024-02-14T16:00:31.884Z] [unzip] Entry: client/browserconfig.xml (compressed_size=491 bytes, uncompressed_size=822 bytes)
+[debug] [2024-02-14T16:00:31.884Z] [unzip] Processing entry: client/browserconfig.xml
+[debug] [2024-02-14T16:00:31.884Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.884Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/browserconfig.xml
+[debug] [2024-02-14T16:00:31.884Z] [unzip] Entry: client/robots.txt (compressed_size=26 bytes, uncompressed_size=26 bytes)
+[debug] [2024-02-14T16:00:31.884Z] [unzip] Processing entry: client/robots.txt
+[debug] [2024-02-14T16:00:31.884Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.884Z] [unzip] Writing file: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/robots.txt
+[debug] [2024-02-14T16:00:31.885Z] [unzip] Entry: client/index.html (compressed_size=1363 bytes, uncompressed_size=3064 bytes)
+[debug] [2024-02-14T16:00:31.885Z] [unzip] Processing entry: client/index.html
+[debug] [2024-02-14T16:00:31.885Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.885Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/index.html
+[debug] [2024-02-14T16:00:31.886Z] [unzip] Entry: client/favicon-16x16.png (compressed_size=757 bytes, uncompressed_size=777 bytes)
+[debug] [2024-02-14T16:00:31.886Z] [unzip] Processing entry: client/favicon-16x16.png
+[debug] [2024-02-14T16:00:31.886Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.886Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/favicon-16x16.png
+[debug] [2024-02-14T16:00:31.887Z] [unzip] Entry: client/manifest.json (compressed_size=246 bytes, uncompressed_size=551 bytes)
+[debug] [2024-02-14T16:00:31.887Z] [unzip] Processing entry: client/manifest.json
+[debug] [2024-02-14T16:00:31.887Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.887Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/manifest.json
+[debug] [2024-02-14T16:00:31.887Z] [unzip] Entry: client/favicon-32x32.png (compressed_size=1175 bytes, uncompressed_size=1175 bytes)
+[debug] [2024-02-14T16:00:31.887Z] [unzip] Processing entry: client/favicon-32x32.png
+[debug] [2024-02-14T16:00:31.888Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.888Z] [unzip] Writing file: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/favicon-32x32.png
+[debug] [2024-02-14T16:00:31.888Z] [unzip] Entry: client/android-chrome-192x192.png (compressed_size=7602 bytes, uncompressed_size=7834 bytes)
+[debug] [2024-02-14T16:00:31.888Z] [unzip] Processing entry: client/android-chrome-192x192.png
+[debug] [2024-02-14T16:00:31.888Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client
+[debug] [2024-02-14T16:00:31.888Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/client/android-chrome-192x192.png
+[debug] [2024-02-14T16:00:31.888Z] [unzip] Entry: server/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2024-02-14T16:00:31.888Z] [unzip] Processing entry: server/
+[debug] [2024-02-14T16:00:31.889Z] [unzip] mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/server/
+[debug] [2024-02-14T16:00:31.889Z] [unzip] Entry: server/server.js (compressed_size=343746 bytes, uncompressed_size=1346374 bytes)
+[debug] [2024-02-14T16:00:31.889Z] [unzip] Processing entry: server/server.js
+[debug] [2024-02-14T16:00:31.889Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/server
+[debug] [2024-02-14T16:00:31.889Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/server/server.js
+[debug] [2024-02-14T16:00:31.895Z] [unzip] Entry: server/server.js.map (compressed_size=289157 bytes, uncompressed_size=1325651 bytes)
+[debug] [2024-02-14T16:00:31.895Z] [unzip] Processing entry: server/server.js.map
+[debug] [2024-02-14T16:00:31.895Z] [unzip] else mkdir: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/server
+[debug] [2024-02-14T16:00:31.895Z] [unzip] deflating: /Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/server/server.js.map
+[info] i  ui: Removing outdated emulator files: ui-v1.11.6 {"metadata":{"emulator":{"name":"ui"},"message":"Removing outdated emulator files: ui-v1.11.6"}}
+[info] i  ui: Removing outdated emulator files: ui-v1.11.6.zip {"metadata":{"emulator":{"name":"ui"},"message":"Removing outdated emulator files: ui-v1.11.6.zip"}}
+[debug] [2024-02-14T16:00:31.910Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-02-14T16:00:31.910Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-02-14T16:00:31.910Z] Starting Emulator UI with command {"binary":"node","args":["/Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/julieallix/.cache/firebase/emulators/ui-v1.11.7/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
 [info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
-[debug] [2024-02-11T12:53:11.824Z] Web / API server started at 127.0.0.1:4000
+[debug] [2024-02-14T16:00:32.024Z] Web / API server started at 127.0.0.1:4000
  {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
-[debug] [2024-02-11T12:53:11.824Z] Web / API server started at ::1:4000
+[debug] [2024-02-14T16:00:32.024Z] Web / API server started at ::1:4000
  {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
 [info] i  functions: Watching "/Users/julieallix/Desktop/PersonalProjects/portfolio-jullix/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/Users/julieallix/Desktop/PersonalProjects/portfolio-jullix/functions\" for Cloud Functions..."}}
-[debug] [2024-02-11T12:53:11.968Z] Validating nodejs source
-[debug] [2024-02-11T12:53:12.591Z] > [functions] package.json contents: {
+[debug] [2024-02-14T16:00:32.171Z] Validating nodejs source
+[debug] [2024-02-14T16:00:32.833Z] > [functions] package.json contents: {
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "scripts": {
@@ -55,14 +217,14 @@
   },
   "private": true
 }
-[debug] [2024-02-11T12:53:12.591Z] Building nodejs source
-[debug] [2024-02-11T12:53:12.592Z] Failed to find version of module node: reached end of search path /Users/julieallix/Desktop/PersonalProjects/portfolio-jullix/functions/node_modules
+[debug] [2024-02-14T16:00:32.834Z] Building nodejs source
+[debug] [2024-02-14T16:00:32.834Z] Failed to find version of module node: reached end of search path /Users/julieallix/Desktop/PersonalProjects/portfolio-jullix/functions/node_modules
 [info] ✔  functions: Using node@18 from host. 
-[debug] [2024-02-11T12:53:12.594Z] Could not find functions.yaml. Must use http discovery
-[debug] [2024-02-11T12:53:12.600Z] Found firebase-functions binary at '/Users/julieallix/Desktop/PersonalProjects/portfolio-jullix/functions/node_modules/.bin/firebase-functions'
-[info] Serving at port 8468
+[debug] [2024-02-14T16:00:32.836Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-02-14T16:00:32.841Z] Found firebase-functions binary at '/Users/julieallix/Desktop/PersonalProjects/portfolio-jullix/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8097
 
-[debug] [2024-02-11T12:53:12.961Z] Got response from /__/functions.yaml {"endpoints":{},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2024-02-14T16:00:33.240Z] Got response from /__/functions.yaml {"endpoints":{},"specVersion":"v1alpha1","requiredAPIs":[]}
 [info] ✔  functions: Loaded functions definitions from source: . {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: ."}}
 [info] 
 ┌─────────────────────────────────────────────────────────────┐
